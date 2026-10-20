@@ -148,7 +148,7 @@
       document.getElementById("panel-content").innerHTML = `<div class="page-heading"><div><h1>Bonjour ${escapeHtml(data.name)}</h1><p class="page-kicker">Voici un aperçu du contenu de la branche.</p></div></div><div class="stats-grid">${[["Événements", data.events], ["Actualités", data.news], ["Projets", data.projects]].map(([label, value]) => `<section class="panel-card stat-card"><h2>${label}</h2><p class="stat-value">${value}</p><p class="stat-caption">Enregistrés dans le site</p></section>`).join("")}</div>`;
       return;
     }
-    const [, , kind, id, newSegment] = contentRoute;
+   const [, kind, id, newSegment] = contentRoute;
     if (id && id !== "new" && !newSegment) {
       await renderEditor(kind, id, session);
     } else if (id === "new" || newSegment) {
