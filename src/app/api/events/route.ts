@@ -1,6 +1,7 @@
 import { localizedValue } from "@/features/content/localized";
 import { routing, type Locale } from "@/i18n/routing";
 import { db } from "@/lib/db";
+import { env } from "@/env";
 
 export const revalidate = 60;
 
@@ -22,6 +23,7 @@ export async function GET(request: Request) {
     locationName: true,
     mode: true,
     registrationOpen: true,
+    coverImage: true,
   };
   const [upcoming, past] = await Promise.all([
     db.event.findMany({
@@ -47,6 +49,9 @@ export async function GET(request: Request) {
     locationName: event.locationName,
     mode: event.mode,
     registrationOpen: event.registrationOpen,
+    coverImageUrl: event.coverImage && env.CLOUDINARY_CLOUD_NAME
+      ? `https://res.cloudinary.com/${encodeURIComponent(env.CLOUDINARY_CLOUD_NAME)}/image/upload/${event.coverImage.split("/").map(encodeURIComponent).join("/")}`
+      : null,
   });
 
   return Response.json({

@@ -16,6 +16,9 @@
       inPerson: "In person",
       online: "Online",
       hybrid: "Hybrid",
+      countdownLabel: "Starts in",
+      countdownUnits: ["days", "hours", "minutes", "seconds"],
+      eventStarted: "This event has started.",
       registrationClosed: "Registration for this event is closed.",
       loadError: "Events could not be loaded. Please try again later.",
     },
@@ -35,6 +38,9 @@
       inPerson: "Présentiel",
       online: "En ligne",
       hybrid: "Hybride",
+      countdownLabel: "Commence dans",
+      countdownUnits: ["jours", "heures", "minutes", "secondes"],
+      eventStarted: "Cet événement a commencé.",
       registrationClosed: "Les inscriptions pour cet événement sont fermées.",
       loadError: "Les événements n’ont pas pu être chargés. Veuillez réessayer plus tard.",
     },
@@ -93,6 +99,103 @@
     return svg;
   };
 
+  const makeCountdown = (startsAt) => {
+    const target = new Date(startsAt).getTime();
+    if (!Number.isFinite(target)) throw new Error("Events API returned an invalid event start time");
+
+    const countdown = document.createElement("div");
+    countdown.className = "event-countdown";
+    countdown.dataset.target = String(target);
+    countdown.setAttribute("role", "timer");
+    countdown.setAttribute("aria-label", labels.countdownLabel);
+    appendText(countdown, "p", labels.countdownLabel, "event-countdown-title");
+    const units = document.createElement("div");
+    units.className = "countdown-units";
+    labels.countdownUnits.forEach((label, index) => {
+      const unit = document.createElement("div");
+      unit.className = "countdown-unit";
+      unit.dataset.unit = String(index);
+      const value = document.createElement("span");
+      value.className = "counter";
+      value.setAttribute("aria-hidden", "true");
+      renderRollingValue(value, index === 0 ? "0" : "00");
+      unit.append(value);
+      appendText(unit, "span", label, "countdown-label");
+      units.append(unit);
+    });
+    countdown.append(units);
+    return countdown;
+  };
+
+  const renderRollingValue = (container, value) => {
+    const digits = String(value);
+    if (container.children.length !== digits.length) {
+      container.replaceChildren();
+      [...digits].forEach((digit) => {
+        const window = document.createElement("span");
+        window.className = "counter-digit";
+        const strip = document.createElement("span");
+        strip.className = "counter-strip";
+        for (let cycle = 0; cycle < 5; cycle++) {
+          for (let numeral = 0; numeral < 10; numeral++) {
+            appendText(strip, "span", String(numeral), "counter-numeral");
+          }
+        }
+        window.append(strip);
+        container.append(window);
+        const position = 20 + Number(digit);
+        strip.dataset.position = String(position);
+        strip.dataset.digit = digit;
+        strip.style.transform = `translateY(-${position * 2}%)`;
+      });
+      return;
+    }
+
+    [...container.children].forEach((digitWindow, index) => {
+      const strip = digitWindow.firstElementChild;
+      const next = Number(digits[index]);
+      const previous = Number(strip.dataset.digit);
+      if (next === previous) return;
+      let step = (next - previous + 10) % 10;
+      if (step > 0) step -= 10;
+      let position = Number(strip.dataset.position) + step;
+      if (position < 10 || position > 29) position = 20 + next;
+      strip.dataset.position = String(position);
+      strip.dataset.digit = String(next);
+      strip.style.transitionDelay = `${(digits.length - index - 1) * 40}ms`;
+      strip.style.transform = `translateY(-${position * 2}%)`;
+    });
+  };
+
+  const updateCountdowns = () => {
+    const now = Date.now();
+    document.querySelectorAll(".event-countdown").forEach((countdown) => {
+      const remaining = Number(countdown.dataset.target) - now;
+      if (remaining <= 0) {
+        if (countdown.classList.contains("is-started")) return;
+        countdown.classList.add("is-started");
+        countdown.setAttribute("aria-label", labels.eventStarted);
+        countdown.replaceChildren();
+        appendText(countdown, "p", labels.eventStarted, "event-started");
+        return;
+      }
+      const seconds = Math.floor(remaining / 1000);
+      const values = [
+        Math.floor(seconds / 86400),
+        Math.floor((seconds % 86400) / 3600),
+        Math.floor((seconds % 3600) / 60),
+        seconds % 60,
+      ];
+      countdown.setAttribute("aria-label", `${labels.countdownLabel}: ${values.map((value, index) =>
+        `${value} ${labels.countdownUnits[index]}`).join(", ")}`);
+      countdown.querySelectorAll(".countdown-unit").forEach((unit) => {
+        const index = Number(unit.dataset.unit);
+        const value = String(values[index]).padStart(index === 0 ? 1 : 2, "0");
+        renderRollingValue(unit.querySelector(".counter"), value);
+      });
+    });
+  };
+
   const makeEventCard = (event, isPast) => {
     const date = new Date(event.startsAt);
     const dateText = new Intl.DateTimeFormat(language, {
@@ -116,6 +219,14 @@
 
     const card = document.createElement("article");
     card.className = `event-card${isPast ? " is-past" : ""}`;
+    if (event.coverImageUrl) {
+      const cover = document.createElement("img");
+      cover.className = "event-cover";
+      cover.src = event.coverImageUrl;
+      cover.alt = event.title;
+      cover.loading = "lazy";
+      card.append(cover);
+    }
     const dateBadge = document.createElement("div");
     dateBadge.className = "date-badge";
     dateBadge.append(icon("M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"));
@@ -163,6 +274,7 @@
       appendText(details, "p", labels.registrationClosed, "registration-closed");
     }
 
+    if (!isPast) details.append(makeCountdown(event.startsAt));
     card.append(details);
     return card;
   };
@@ -188,6 +300,11 @@
       data.upcoming.forEach((event) => upcomingCards.append(makeEventCard(event, false)));
       document.getElementById("upcoming-list").replaceChildren(upcomingCards);
       document.getElementById("upcoming-empty").hidden = data.upcoming.length > 0;
+      updateCountdowns();
+      if (data.upcoming.length) {
+        const countdownInterval = window.setInterval(updateCountdowns, 1000);
+        window.addEventListener("pagehide", () => window.clearInterval(countdownInterval), { once: true });
+      }
 
       if (data.past.length) {
         const pastCards = document.createDocumentFragment();

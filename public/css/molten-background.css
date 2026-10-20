@@ -1,0 +1,78 @@
+:root { min-height: 100%; color-scheme: dark; background: #04111f !important; }
+html { min-height: 100%; background: #04111f !important; }
+body { position: relative; z-index: 0; min-height: 100vh; color: #f1f7fc; background: transparent !important; }
+.molten-background {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+  contain: strict;
+}
+.molten-background canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+body > .site-header,body > main,body > .site-footer,body > .hero,body > .events-content {
+  position: relative;
+  z-index: 1;
+}
+.site-header { background: transparent; }
+.home-hero,.page-hero,.site-section,.join-section,.site-footer {
+  background: transparent !important;
+}
+.home-hero::before,.home-hero::after { content: none; }
+.site-section { color: #f1f7fc; }
+.site-section h2,.site-section h3,.site-section h1 { color: #f1f7fc; }
+.site-section .section-eyebrow { color: #67e8f9; }
+.site-section p:not(.site-error) { color: #c3d4e2; }
+.site-section .section-eyebrow { color: #67e8f9 !important; }
+.focus-card,.team-card,.news-card,.sponsor-card,.resource-card {
+  border-color: rgb(148 190 215 / 25%);
+  color: #f1f7fc;
+  background: rgb(7 28 46 / 86%);
+  box-shadow: 0 14px 36px rgb(0 0 0 / 22%);
+}
+.focus-card h3,.team-card h3,.news-card h2,.news-card h3,.sponsor-card,.resource-card h2 { color: #f1f7fc; }
+.focus-card p,.team-card .team-bio,.news-card p,.resource-card p { color: #bfd0df; }
+.team-card .team-position,.resource-card > span { color: #67e8f9; }
+.activities-list { border-color: rgb(148 190 215 / 25%); }
+.activity-row { border-color: rgb(148 190 215 / 25%); }
+.activity-row h3 { color: #f1f7fc; }
+.activity-row p,.activities-head > p,.empty-note { color: #bfd0df; }
+.gallery-item { background: #0a273b; }
+.carousel-caption p { color: #f1f7fc; }
+.carousel-caption span { color: #a9c0d1; }
+.carousel-arrow { border-color: rgb(148 190 215 / 30%); color: #f1f7fc; background: rgb(7 28 46 / 88%); }
+.carousel-arrow:hover { border-color: #67e8f9; background: #0d3b53; }
+.carousel-dot { background: #7896aa; }
+.carousel-dot[aria-current="true"] { background: #22d3ee; }
+.section-link,.about-section > div:nth-child(2) a { color: #67e8f9; }
+.site-footer { border-color: rgb(148 190 215 / 22%); color: #bfd0df; }
+.site-footer strong { color: #f1f7fc; }
+.site-error { color: #fecaca; background: rgb(127 29 29 / 55%); }
+
+.events-page .hero,.events-page .events-content { background: transparent !important; }
+.events-page .events-content { color: #f1f7fc; }
+.events-page .events-content h2,.events-page .events-content h3 { color: #f1f7fc; }
+.events-page .event-card,.events-page .empty-state {
+  border-color: rgb(148 190 215 / 25%);
+  color: #f1f7fc;
+  background-color: rgb(7 28 46 / 88%);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 22%);
+}
+.events-page .event-summary,.events-page .event-metadata,.events-page .empty-state p { color: #bfd0df; }
+.events-page .past-badge { color: #d6e3ec; background: #18364a; }
+.events-page .empty-state { border-style: dashed; }
+.events-page .count,.events-page .date-badge { color: #083049; background: #a5f3fc; }
+.events-page .error-message { border-color: #f87171; color: #fee2e2; background: rgb(127 29 29 / 65%); }
+.events-page .brand,.events-page .language-switch a { color: #e2edf5; }
+.events-page .brand span { color: #67e8f9; }
+.events-page .section-eyebrow { color: #67e8f9; }
+.events-page .event-card.is-past { opacity: .9; }

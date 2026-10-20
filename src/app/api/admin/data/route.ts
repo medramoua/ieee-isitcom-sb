@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/features/auth/session";
 import { can, ROLE_LABEL } from "@/features/auth/permissions";
 import { formatTunisDateTime } from "@/features/content/dates";
 import { db } from "@/lib/db";
+import { env } from "@/env";
 
 const kinds = ["events", "news", "projects"] as const;
 type Kind = (typeof kinds)[number];
@@ -30,6 +31,8 @@ function baseValues(kind: Kind, entry: {
 }) {
   const summary = entry.summary ?? entry.excerpt ?? null;
   const description = entry.description ?? entry.content ?? null;
+  const coverImage = entry.coverImage ?? "";
+  const coverImagePath = coverImage.split("/").map(encodeURIComponent).join("/");
   return {
     id: entry.id,
     kind,
@@ -37,7 +40,10 @@ function baseValues(kind: Kind, entry: {
     title: Object.fromEntries(["fr", "en"].map((locale) => [locale, localizedValue(entry.title, locale)])),
     summary: Object.fromEntries(["fr", "en"].map((locale) => [locale, localizedValue(summary, locale)])),
     description: Object.fromEntries(["fr", "en"].map((locale) => [locale, localizedValue(description, locale)])),
-    coverImage: entry.coverImage ?? "",
+    coverImage,
+    coverImageUrl: coverImage && env.CLOUDINARY_CLOUD_NAME
+      ? `https://res.cloudinary.com/${encodeURIComponent(env.CLOUDINARY_CLOUD_NAME)}/image/upload/${coverImagePath}`
+      : "",
     status: entry.status,
     publishedAt: formatTunisDateTime(entry.publishedAt),
     startsAt: "",
@@ -65,6 +71,7 @@ export async function GET(request: Request) {
       mustChangePassword: user.mustChangePassword,
       canEdit: can(user.role, "content:edit"),
       canDelete: can(user.role, "content:delete"),
+      canManage: can(user.role, "org:manage"),
     });
   }
   if (user.mustChangePassword) {

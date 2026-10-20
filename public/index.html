@@ -6,7 +6,11 @@
     <meta name="description" content="IEEE Student Branch of ISITCom Hammam Sousse">
     <title>IEEE ISITCom Student Branch</title>
     <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/css/molten-background.css">
+    <link rel="stylesheet" href="/css/glow-cursor.css">
     <script src="/js/home.js" defer></script>
+    <script src="/js/molten-background.js" defer></script>
+    <script src="/js/glow-cursor.js" defer></script>
   </head>
   <body>
     <p id="site-error" class="site-error" role="alert" hidden></p>
@@ -14,29 +18,86 @@
       <a class="site-brand" href="/" aria-label="IEEE ISITCom">
         <span class="ieee-mark">IEEE</span><span><strong>ISITCom</strong><small id="brand-subline"></small></span>
       </a>
-      <nav aria-label="Main navigation">
-        <a id="nav-about" href="#about"></a><a id="nav-events" href="/events.html"></a><a id="nav-activities" href="#activities"></a>
+      <nav class="main-tabs" aria-label="Main navigation">
+        <a href="#explore" id="nav-explore"></a><a href="#gallery" id="nav-gallery"></a><a href="#team" id="nav-team"></a>
       </nav>
       <div class="header-actions">
         <a id="locale-fr" href="/?locale=fr" lang="fr">FR</a><a id="locale-en" href="/?locale=en" lang="en">EN</a>
-        <a class="admin-link" id="admin-link" href="/admin/login"></a>
       </div>
     </header>
     <main>
       <section class="home-hero">
+        <div class="hero-pointer-glow" aria-hidden="true"></div>
         <div class="hero-copy">
           <p class="eyebrow" id="home-eyebrow"></p>
           <h1><span id="hero-title"></span><span id="hero-highlight"></span></h1>
           <p class="hero-description" id="hero-description"></p>
-          <div class="hero-actions"><a class="button light" href="#join" id="join-button"></a><a class="button outline" href="#about" id="discover-button"></a></div>
+          <div class="hero-actions"><a class="button light" href="#join" id="join-button"></a><a class="button outline" href="#explore" id="discover-button"></a></div>
           <p class="hero-location"><strong>IEEE</strong> <span id="network-label"></span><span id="location"></span></p>
         </div>
         <div class="hero-orbit" aria-hidden="true"><div class="orbit-card"><strong>IEEE</strong><span>ISITCom</span></div><p id="orbit-one"></p><p id="orbit-two"></p></div>
       </section>
-      <section class="site-section about-section" id="about"><div><p class="section-eyebrow" id="about-eyebrow"></p><h2 id="about-title"></h2></div><div><p id="about-description"></p><a href="#focus" id="about-link"></a></div></section>
-      <section class="site-section focus-section" id="focus"><div class="section-intro"><p class="section-eyebrow" id="focus-eyebrow"></p><h2 id="focus-title"></h2><p id="focus-description"></p></div><div class="focus-grid" id="focus-grid"></div></section>
-      <section class="site-section activities-section" id="activities"><div class="activities-head"><div><p class="section-eyebrow" id="activities-eyebrow"></p><h2 id="activities-title"></h2></div><p id="activities-intro"></p></div><div id="activities-list" class="activities-list"></div></section>
-      <section class="join-section" id="join"><div><p class="section-eyebrow" id="join-eyebrow"></p><h2 id="join-title"></h2><p id="join-description"></p></div><a class="button light" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noreferrer" id="join-cta"></a></section>
+
+      <section class="site-section explore-section" id="explore">
+        <div class="section-intro"><p class="section-eyebrow" id="explore-eyebrow"></p><h2 id="explore-title"></h2><p id="explore-description"></p></div>
+        <div class="explore-grid" id="explore-grid"></div>
+      </section>
+
+      <section class="site-section about-section" id="about">
+        <div><p class="section-eyebrow" id="about-eyebrow"></p><h2 id="about-title"></h2></div>
+        <div><p id="about-description"></p><a href="#join" id="about-link"></a></div>
+      </section>
+
+      <section class="site-section gallery-section" id="gallery">
+        <div class="activities-head"><div><p class="section-eyebrow" id="gallery-eyebrow"></p><h2 id="gallery-title"></h2></div><p id="gallery-intro"></p></div>
+        <p id="gallery-error" class="site-error" role="alert" hidden></p>
+        <div class="photo-carousel" id="gallery-carousel" hidden>
+          <div class="carousel-stage" id="gallery-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Gallery photos">
+            <div class="carousel-ring" id="gallery-ring"></div>
+          </div>
+          <div class="carousel-caption" aria-live="polite">
+            <span id="gallery-count"></span>
+          </div>
+        </div>
+        <p class="empty-note" id="gallery-empty" hidden></p>
+      </section>
+
+      <section class="site-section activities-section" id="activities">
+        <div class="activities-head"><div><p class="section-eyebrow" id="activities-eyebrow"></p><h2 id="activities-title"></h2></div><p id="activities-intro"></p></div>
+        <div id="activities-list" class="activities-list"></div>
+      </section>
+
+      <section class="site-section team-section" id="team">
+        <div class="activities-head"><div><p class="section-eyebrow" id="team-eyebrow"></p><h2 id="team-title"></h2></div><p id="team-intro"></p></div>
+        <p id="team-error" class="site-error" role="alert" hidden></p>
+        <div class="team-grid" id="team-grid" aria-live="polite"></div>
+        <p class="empty-note" id="team-empty" hidden></p>
+      </section>
+
+      <section class="site-section award-section" id="awards">
+        <div class="section-intro"><p class="section-eyebrow" id="awards-eyebrow"></p><h2 id="awards-title"></h2><p id="awards-description"></p></div>
+        <div class="milestone-list" id="milestone-list" aria-live="polite"></div>
+        <p class="empty-note" id="milestones-empty" hidden></p>
+      </section>
+
+      <section class="site-section news-section" id="news">
+        <div class="activities-head"><div><p class="section-eyebrow" id="news-eyebrow"></p><h2 id="news-title"></h2></div><p id="news-intro"></p></div>
+        <p id="news-error" class="site-error" role="alert" hidden></p>
+        <div id="news-list" class="news-grid" aria-live="polite"></div>
+        <a class="section-link" href="/news.html" id="news-more"></a>
+      </section>
+
+      <section class="join-section" id="join">
+        <div><p class="section-eyebrow" id="join-eyebrow"></p><h2 id="join-title"></h2><p id="join-description"></p></div>
+        <a class="button light" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noreferrer" id="join-cta"></a>
+      </section>
+
+      <section class="site-section sponsors-section" id="sponsors">
+        <div class="activities-head"><div><p class="section-eyebrow" id="sponsors-eyebrow"></p><h2 id="sponsors-title"></h2></div><p id="sponsors-intro"></p></div>
+        <p id="sponsors-error" class="site-error" role="alert" hidden></p>
+        <div class="sponsors-grid" id="sponsors-grid" aria-live="polite"></div>
+        <p class="empty-note" id="sponsors-empty" hidden></p>
+      </section>
     </main>
     <footer class="site-footer"><p><strong>IEEE ISITCom</strong> · <span id="footer-location"></span></p><p id="footer-line"></p></footer>
   </body>

@@ -44,6 +44,16 @@ export default async function middleware(req: NextRequest) {
     url.pathname = "/events.html";
     url.search = `?locale=${pathname === "/en/events" ? "en" : "fr"}`;
     response = NextResponse.rewrite(url);
+  } else if (pathname === "/news" || pathname === "/fr/news" || pathname === "/en/news") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/news.html";
+    url.search = `?locale=${pathname === "/en/news" ? "en" : "fr"}`;
+    response = NextResponse.rewrite(url);
+  } else if (pathname === "/resources" || pathname === "/fr/resources" || pathname === "/en/resources") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/resources.html";
+    url.search = `?locale=${pathname === "/en/resources" ? "en" : "fr"}`;
+    response = NextResponse.rewrite(url);
   } else {
     // Other public routes retain next-intl routing for future page implementations.
     response = intl(req);

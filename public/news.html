@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="News from the IEEE ISITCom Student Branch">
+    <title>News | IEEE ISITCom</title>
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/css/molten-background.css">
+    <link rel="stylesheet" href="/css/glow-cursor.css">
+    <script src="/js/news.js" defer></script>
+    <script src="/js/molten-background.js" defer></script>
+    <script src="/js/glow-cursor.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-brand" href="/"><span class="ieee-mark">IEEE</span><span><strong>ISITCom</strong><small id="brand-subline"></small></span></a>
+      <nav aria-label="Main navigation"><a href="/#explore" id="back-home"></a></nav>
+      <div class="header-actions"><a id="locale-fr" href="/news.html?locale=fr" lang="fr">FR</a><a id="locale-en" href="/news.html?locale=en" lang="en">EN</a></div>
+    </header>
+    <main>
+      <section class="home-hero page-hero"><div class="hero-copy"><p class="eyebrow" id="news-eyebrow"></p><h1 id="news-title"></h1><p class="hero-description" id="news-intro"></p></div></section>
+      <section class="site-section news-section"><p id="news-error" class="site-error" role="alert" hidden></p><div id="news-list" class="news-grid" aria-live="polite"></div><p class="empty-note" id="news-empty" hidden></p></section>
+    </main>
+    <footer class="site-footer"><p><strong>IEEE ISITCom</strong> · <span id="footer-location"></span></p><p id="footer-line"></p></footer>
+  </body>
+</html>

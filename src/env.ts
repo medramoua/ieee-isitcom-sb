@@ -8,6 +8,9 @@ const schema = z.object({
   NEXTAUTH_URL: z.string().url().optional().or(z.literal("")),
   NEXTAUTH_SECRET: z.string().min(32, "NEXTAUTH_SECRET must be at least 32 chars (openssl rand -base64 32)"),
   NEXT_PUBLIC_SITE_URL: z.string().url(),
+  CLOUDINARY_CLOUD_NAME: z.string().regex(/^[A-Za-z0-9_-]+$/).optional().or(z.literal("")),
+  CLOUDINARY_API_KEY: z.string().optional(),
+  CLOUDINARY_API_SECRET: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
   EMAIL_FROM: z.string().default("IEEE ISITCom <no-reply@example.com>"),
 });
