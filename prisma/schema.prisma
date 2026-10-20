@@ -1,0 +1,747 @@
+// =============================================================================
+// IEEE Student Branch — ISITCom Hammam Sousse
+// Prisma schema (PostgreSQL) — Phase 0
+//
+// Conventions
+//  - "LocalizedText" = Json shaped { "fr": "...", "en"?: "..." }
+//    `fr` is required (validated with Zod), other locales fall back to `fr`.
+//  - Rich-text fields hold sanitized HTML (TipTap output) inside LocalizedText.
+//  - Images are stored as Cloudinary public_id strings (not FKs). The Media
+//    table is the library (alt text, size, uploader) used by the admin picker.
+//  - Visibility rule for publishable content (Event, Post, Project, Album,
+//    Resource):  status = PUBLISHED AND publishedAt <= now()
+//    => scheduling = PUBLISHED with a future publishedAt. No cron needed.
+//  - searchText = denormalised plain text (all locales) filled on save,
+//    used by the site-wide search (pg_trgm index added via raw SQL migration).
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // pooled connection (Neon pooler / Supabase pgbouncer)
+  directUrl = env("DIRECT_URL")   // direct connection, used by `prisma migrate`
+}
+
+// -----------------------------------------------------------------------------
+// ENUMS
+// -----------------------------------------------------------------------------
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+enum ContentStatus {
+  DRAFT
+  IN_REVIEW // editor asked an admin to publish
+  PUBLISHED
+  ARCHIVED
+}
+
+enum CategoryKind {
+  EVENT
+  POST
+  RESOURCE
+}
+
+enum EventMode {
+  IN_PERSON
+  ONLINE
+  HYBRID
+}
+
+enum RegistrationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  WAITLISTED
+  CANCELLED
+}
+
+enum StudyYear {
+  L1
+  L2
+  L3
+  M1
+  M2
+  ENGINEERING
+  OTHER
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WAITLISTED
+}
+
+enum ChapterType {
+  TECHNICAL_CHAPTER // e.g. CS, RAS, PES
+  AFFINITY_GROUP    // e.g. WIE, YP
+}
+
+enum ChapterStatus {
+  PLANNED
+  ACTIVE
+  INACTIVE
+}
+
+enum ProjectStage {
+  IDEA
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum ResourceType {
+  LINK
+  FILE
+}
+
+enum MediaKind {
+  IMAGE
+  DOCUMENT
+}
+
+enum PartnerType {
+  SPONSOR
+  PARTNER
+  ACADEMIC
+  MEDIA
+}
+
+enum MessageKind {
+  GENERAL
+  SPONSORSHIP
+  PARTNERSHIP
+  OTHER
+}
+
+enum SubscriberStatus {
+  PENDING   // double opt-in not yet confirmed
+  CONFIRMED
+  UNSUBSCRIBED
+}
+
+enum EmailStatus {
+  SENT
+  FAILED
+}
+
+enum AuditAction {
+  LOGIN
+  LOGIN_FAILED
+  LOGOUT
+  PASSWORD_CHANGE
+  CREATE
+  UPDATE
+  DELETE
+  SUBMIT_FOR_REVIEW
+  PUBLISH
+  UNPUBLISH
+  APPROVE
+  REJECT
+  CHECK_IN
+  EXPORT
+  EMAIL_SENT
+  ROLE_CHANGE
+  SETTINGS_CHANGE
+}
+
+// -----------------------------------------------------------------------------
+// AUTH & USERS  (NextAuth credentials + JWT sessions => no Account/Session tables)
+// -----------------------------------------------------------------------------
+
+model User {
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  name               String
+  passwordHash       String // bcrypt
+  role               Role      @default(EDITOR)
+  isActive           Boolean   @default(true) // checked on every JWT refresh => instant revocation
+  mustChangePassword Boolean   @default(false) // true for the seeded admin
+  failedLogins       Int       @default(0)
+  lockedUntil        DateTime?
+  lastLoginAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  posts                 Post[]
+  auditLogs             AuditLog[]
+  resetTokens           PasswordResetToken[]
+  reviewedApplications  MembershipApplication[]
+  reviewedRegistrations EventRegistration[]     @relation("RegistrationReviewer")
+  checkIns              EventRegistration[]     @relation("RegistrationCheckIn")
+  contactReplies        ContactReply[]
+  uploads               Media[]
+  emailLogs             EmailLog[]
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique // sha256 of the emailed token
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+// -----------------------------------------------------------------------------
+// MEDIA LIBRARY
+// -----------------------------------------------------------------------------
+
+model Media {
+  id           String    @id @default(cuid())
+  kind         MediaKind @default(IMAGE)
+  publicId     String    @unique // Cloudinary public_id
+  url          String // secure_url
+  format       String?
+  bytes        Int?
+  width        Int?
+  height       Int?
+  originalName String?
+  alt          Json? // LocalizedText
+  folder       String?
+  uploadedById String?
+  uploadedBy   User?     @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  createdAt    DateTime  @default(now())
+
+  @@index([kind, createdAt])
+}
+
+// -----------------------------------------------------------------------------
+// TAXONOMY
+// -----------------------------------------------------------------------------
+
+model Category {
+  id        String       @id @default(cuid())
+  kind      CategoryKind
+  slug      String
+  name      Json // LocalizedText
+  color     String? // hex, used for badges
+  order     Int          @default(0)
+  events    Event[]
+  posts     Post[]
+  resources Resource[]
+
+  @@unique([kind, slug])
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  slug  String @unique
+  name  Json // LocalizedText
+  posts Post[]
+}
+
+// -----------------------------------------------------------------------------
+// EVENTS
+// -----------------------------------------------------------------------------
+
+model Event {
+  id                   String        @id @default(cuid())
+  slug                 String        @unique
+  title                Json // LocalizedText
+  summary              Json? // LocalizedText (plain)
+  description          Json? // LocalizedText (HTML)
+  coverImage           String? // Cloudinary public_id
+  categoryId           String?
+  category             Category?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  chapterId            String?
+  chapter              Chapter?      @relation(fields: [chapterId], references: [id], onDelete: SetNull)
+
+  mode                 EventMode     @default(IN_PERSON)
+  startsAt             DateTime // stored UTC, displayed in Africa/Tunis
+  endsAt               DateTime?
+  locationName         String?
+  locationAddress      String?
+  mapUrl               String?
+  onlineUrl            String?
+
+  capacity             Int? // null = unlimited
+  registrationOpen     Boolean       @default(true)
+  registrationDeadline DateTime?
+  requiresApproval     Boolean       @default(false) // false => auto-APPROVED
+  membersOnly          Boolean       @default(false)
+  customQuestions      Json? // optional extra form fields: [{ key, label: LocalizedText, required }]
+
+  certificateEnabled   Boolean       @default(false)
+  certificateHours     Float? // shown on the certificate
+
+  status               ContentStatus @default(DRAFT)
+  publishedAt          DateTime?
+  seo                  Json? // { title?: LocalizedText, description?: LocalizedText, ogImage?: string }
+  searchText           String        @default("") @db.Text
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  registrations        EventRegistration[]
+  albums               Album[]
+
+  @@index([status, publishedAt])
+  @@index([startsAt])
+}
+
+model EventRegistration {
+  id            String             @id @default(cuid())
+  eventId       String
+  event         Event              @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  fullName      String
+  email         String
+  phone         String?
+  studyYear     StudyYear?
+  program       String? // field of study
+  ieeeMemberId  String?
+  answers       Json? // answers to Event.customQuestions
+  locale        String             @default("fr")
+  consentAt     DateTime           @default(now())
+
+  status        RegistrationStatus @default(PENDING)
+  reviewedById  String?
+  reviewedBy    User?              @relation("RegistrationReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewedAt    DateTime?
+
+  qrToken       String             @unique // random, generated in app (crypto), encoded in the QR code
+  checkedInAt   DateTime?
+  checkedInById String?
+  checkedInBy   User?              @relation("RegistrationCheckIn", fields: [checkedInById], references: [id], onDelete: SetNull)
+
+  certificate   Certificate?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  @@unique([eventId, email])
+  @@index([eventId, status])
+}
+
+model Certificate {
+  id             String            @id @default(cuid())
+  code           String            @unique // public verification code, e.g. ISI-IEEE-2026-7KQ2MX
+  registrationId String            @unique
+  registration   EventRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  // snapshots, so a certificate never changes if the event/registration is edited
+  recipientName  String
+  eventTitle     String
+  eventDate      DateTime
+  hours          Float?
+  issuedAt       DateTime          @default(now())
+  emailedAt      DateTime?
+}
+
+// -----------------------------------------------------------------------------
+// TEAM
+// -----------------------------------------------------------------------------
+
+model Board {
+  id          String       @id @default(cuid())
+  label       String       @unique // "2026–2027"
+  startYear   Int
+  endYear     Int?
+  isCurrent   Boolean      @default(false) // only one true (partial unique index, see ARCHITECTURE.md)
+  description Json? // LocalizedText
+  members     TeamMember[]
+  createdAt   DateTime     @default(now())
+}
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  boardId     String
+  board       Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  fullName    String
+  position    Json // LocalizedText, e.g. { fr: "Président", en: "Chairperson" }
+  photo       String? // Cloudinary public_id
+  bio         Json? // LocalizedText
+  email       String?
+  socials     Json? // { linkedin?, github?, facebook?, instagram?, website? }
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([boardId, order])
+}
+
+// -----------------------------------------------------------------------------
+// CHAPTERS & AFFINITY GROUPS
+// -----------------------------------------------------------------------------
+
+model Chapter {
+  id           String                  @id @default(cuid())
+  slug         String                  @unique
+  code         String // "CS", "RAS", "WIE", ...
+  type         ChapterType
+  status       ChapterStatus           @default(PLANNED)
+  name         Json // LocalizedText
+  description  Json? // LocalizedText (HTML)
+  logo         String?
+  coverImage   String?
+  foundedAt    DateTime?
+  chairName    String?
+  contactEmail String?
+  links        Json? // { website?, facebook?, linkedin?, ... }
+  order        Int                     @default(0)
+  isPublished  Boolean                 @default(false)
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+
+  events       Event[]
+  projects     Project[]
+  applicants   MembershipApplication[]
+}
+
+// -----------------------------------------------------------------------------
+// PROJECTS
+// -----------------------------------------------------------------------------
+
+model Project {
+  id          String          @id @default(cuid())
+  slug        String          @unique
+  title       Json // LocalizedText
+  summary     Json? // LocalizedText
+  description Json? // LocalizedText (HTML)
+  coverImage  String?
+  gallery     String[] // extra Cloudinary public_ids
+  stage       ProjectStage    @default(IN_PROGRESS)
+  techTags    String[]
+  repoUrl     String?
+  demoUrl     String?
+  docsUrl     String?
+  startedAt   DateTime?
+  featured    Boolean         @default(false)
+  chapterId   String?
+  chapter     Chapter?        @relation(fields: [chapterId], references: [id], onDelete: SetNull)
+
+  status      ContentStatus   @default(DRAFT)
+  publishedAt DateTime?
+  seo         Json?
+  searchText  String          @default("") @db.Text
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  members     ProjectMember[]
+
+  @@index([status, publishedAt])
+}
+
+model ProjectMember {
+  id         String  @id @default(cuid())
+  projectId  String
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name       String
+  role       String?
+  profileUrl String?
+  order      Int     @default(0)
+
+  @@index([projectId, order])
+}
+
+// -----------------------------------------------------------------------------
+// NEWS / BLOG
+// -----------------------------------------------------------------------------
+
+model Post {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       Json // LocalizedText
+  excerpt     Json? // LocalizedText
+  content     Json // LocalizedText (HTML)
+  coverImage  String?
+  categoryId  String?
+  category    Category?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags        Tag[]
+  authorId    String?
+  author      User?         @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  featured    Boolean       @default(false)
+
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  seo         Json?
+  searchText  String        @default("") @db.Text
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+}
+
+// -----------------------------------------------------------------------------
+// RESOURCES
+// -----------------------------------------------------------------------------
+
+model Resource {
+  id            String        @id @default(cuid())
+  type          ResourceType  @default(LINK)
+  title         Json // LocalizedText
+  description   Json? // LocalizedText
+  url           String? // for LINK
+  fileUrl       String? // for FILE (Cloudinary raw/auto upload)
+  fileName      String?
+  fileBytes     Int?
+  categoryId    String?
+  category      Category?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  icon          String? // lucide icon name
+  featured      Boolean       @default(false)
+  order         Int           @default(0)
+  downloadCount Int           @default(0)
+
+  status        ContentStatus @default(DRAFT)
+  publishedAt   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status, order])
+}
+
+// -----------------------------------------------------------------------------
+// GALLERY
+// -----------------------------------------------------------------------------
+
+model Album {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       Json // LocalizedText
+  description Json? // LocalizedText
+  coverImage  String?
+  date        DateTime?
+  eventId     String?
+  event       Event?        @relation(fields: [eventId], references: [id], onDelete: SetNull)
+
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  photos      AlbumPhoto[]
+
+  @@index([status, publishedAt])
+}
+
+model AlbumPhoto {
+  id        String  @id @default(cuid())
+  albumId   String
+  album     Album   @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  publicId  String // Cloudinary public_id
+  width     Int? // needed for masonry layout without layout shift
+  height    Int?
+  caption   Json? // LocalizedText
+  order     Int     @default(0)
+
+  @@index([albumId, order])
+}
+
+// -----------------------------------------------------------------------------
+// SPONSORS & PACKAGES
+// -----------------------------------------------------------------------------
+
+model SponsorshipPackage {
+  id            String    @id @default(cuid())
+  slug          String    @unique // "gold", "silver", ...
+  name          Json // LocalizedText
+  description   Json? // LocalizedText
+  amount        Decimal?  @db.Decimal(10, 2) // null => "contact us"
+  currency      String    @default("TND")
+  benefits      Json // { fr: string[], en?: string[] }
+  isHighlighted Boolean   @default(false)
+  order         Int       @default(0)
+  isPublished   Boolean   @default(true)
+  sponsors      Sponsor[]
+}
+
+model Sponsor {
+  id          String              @id @default(cuid())
+  name        String
+  type        PartnerType         @default(SPONSOR)
+  logo        String? // Cloudinary public_id
+  websiteUrl  String?
+  description Json? // LocalizedText
+  packageId   String?
+  package     SponsorshipPackage? @relation(fields: [packageId], references: [id], onDelete: SetNull)
+  since       DateTime?
+  order       Int                 @default(0)
+  isActive    Boolean             @default(true)
+  createdAt   DateTime            @default(now())
+
+  @@index([isActive, order])
+}
+
+// -----------------------------------------------------------------------------
+// EDITABLE PAGE CONTENT & HISTORY
+// -----------------------------------------------------------------------------
+
+/// Free-form editable blocks. key examples: "home.hero", "about.ieee", "about.mission",
+/// "about.vision", "resources.benefits", "privacy", "cookies".
+model PageContent {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  title       Json? // LocalizedText
+  body        Json? // LocalizedText (HTML)
+  data        Json? // structured extras (CTA labels/links, image public_id, ...)
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Milestone {
+  id          String   @id @default(cuid())
+  happenedAt  DateTime
+  title       Json // LocalizedText
+  description Json? // LocalizedText
+  image       String?
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+
+  @@index([happenedAt])
+}
+
+// -----------------------------------------------------------------------------
+// SITE SETTINGS (singleton row, id = "singleton")
+// -----------------------------------------------------------------------------
+
+model SiteSettings {
+  id            String   @id @default("singleton")
+  branchName    String   @default("IEEE ISITCom Student Branch")
+  tagline       Json? // LocalizedText
+  logoIeee      String? // Cloudinary public_id
+  logoIsitcom   String?
+  logoBranch    String?
+  favicon       String?
+  primaryColor  String   @default("#00629B")
+  accentColor   String?
+  contactEmail  String?
+  contactPhone  String?
+  address       Json? // LocalizedText
+  mapLat        Float?
+  mapLng        Float?
+  socials       Json? // { facebook?, instagram?, linkedin?, youtube?, github?, x? }
+  externalLinks Json? // { isitcom?, ieeeTunisia?, ieeeOrg?, ... }
+  seo           Json? // { titleTemplate?, description?: LocalizedText, ogImage?, keywords? }
+  statsOverride Json? // { members?: number } — member count is manual (no members table)
+  features      Json? // toggles: { registrations?, applications?, newsletter? }
+  updatedAt     DateTime @updatedAt
+}
+
+// -----------------------------------------------------------------------------
+// PUBLIC FORMS & INBOX
+// -----------------------------------------------------------------------------
+
+model MembershipApplication {
+  id           String            @id @default(cuid())
+  fullName     String
+  email        String
+  phone        String?
+  studyYear    StudyYear
+  program      String // field of study
+  motivation   String            @db.Text
+  ieeeMemberId String? // optional
+  interests    Chapter[] // chapters / affinity groups of interest
+  locale       String            @default("fr")
+  consentAt    DateTime          @default(now())
+
+  status       ApplicationStatus @default(PENDING)
+  reviewedById String?
+  reviewedBy   User?             @relation(fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewedAt   DateTime?
+  reviewNote   String?           @db.Text
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([status, createdAt])
+  @@index([email])
+}
+
+model ContactMessage {
+  id         String         @id @default(cuid())
+  kind       MessageKind    @default(GENERAL)
+  name       String
+  email      String
+  subject    String
+  message    String         @db.Text
+  locale     String         @default("fr")
+  isRead     Boolean        @default(false)
+  isArchived Boolean        @default(false)
+  ipHash     String? // sha256(ip + salt), abuse tracking without storing raw IPs
+  createdAt  DateTime       @default(now())
+  replies    ContactReply[]
+
+  @@index([isRead, isArchived, createdAt])
+}
+
+model ContactReply {
+  id        String         @id @default(cuid())
+  messageId String
+  message   ContactMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  body      String         @db.Text
+  sentById  String?
+  sentBy    User?          @relation(fields: [sentById], references: [id], onDelete: SetNull)
+  sentAt    DateTime       @default(now())
+
+  @@index([messageId])
+}
+
+model NewsletterSubscriber {
+  id               String           @id @default(cuid())
+  email            String           @unique
+  locale           String           @default("fr")
+  status           SubscriberStatus @default(PENDING)
+  confirmToken     String           @unique // random, generated in app
+  unsubscribeToken String           @unique
+  confirmedAt      DateTime?
+  unsubscribedAt   DateTime?
+  createdAt        DateTime         @default(now())
+}
+
+// -----------------------------------------------------------------------------
+// OPS: EMAIL LOG, AUDIT LOG, RATE LIMIT
+// -----------------------------------------------------------------------------
+
+model EmailLog {
+  id          String      @id @default(cuid())
+  to          String
+  subject     String
+  template    String // "registration-approved", "application-accepted", "attendee-broadcast", ...
+  status      EmailStatus
+  providerId  String? // Resend message id
+  error       String?
+  relatedType String? // "Event", "MembershipApplication", ...
+  relatedId   String?
+  sentById    String?
+  sentBy      User?       @relation(fields: [sentById], references: [id], onDelete: SetNull)
+  createdAt   DateTime    @default(now())
+
+  @@index([relatedType, relatedId])
+  @@index([createdAt])
+}
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  userId     String?
+  user       User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userEmail  String? // snapshot, survives user deletion
+  action     AuditAction
+  entityType String? // "Event", "Post", "User", ...
+  entityId   String?
+  summary    String? // human-readable: «Published event "Intro to IoT"»
+  metadata   Json? // diff / extra context
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime    @default(now())
+
+  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
+}
+
+/// Fixed-window rate limiter backed by Postgres (serverless-safe, no Redis needed).
+/// key example: "contact:<ipHash>", "login:<email>".
+model RateLimitBucket {
+  key     String   @id
+  count   Int
+  resetAt DateTime
+
+  @@index([resetAt])
+}

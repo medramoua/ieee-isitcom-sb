@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover upcoming events and past activities from the IEEE Student Branch at ISITCom.">
+    <title>Events | IEEE ISITCom</title>
+    <link rel="stylesheet" href="/events.css">
+    <script src="/events.js" defer></script>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="Main navigation">
+        <a class="brand" href="/">IEEE <span>ISITCom</span></a>
+        <div class="language-switch" aria-label="Language">
+          <a href="/events.html?locale=en" lang="en">EN</a>
+          <a href="/events.html?locale=fr" lang="fr">FR</a>
+        </div>
+      </nav>
+      <div class="hero-content">
+        <p id="eyebrow" class="eyebrow">At ISITCom</p>
+        <h1 id="page-title">Ideas come to life when we get together.</h1>
+        <p id="page-description" class="hero-description">Workshops, talks, and meetups organized by the IEEE Student Branch. Find upcoming dates and moments we've shared.</p>
+      </div>
+    </header>
+
+    <main id="events-data" class="events-content">
+      <p id="events-error" class="error-message" role="alert" hidden></p>
+      <section aria-labelledby="upcoming-heading">
+        <div class="section-heading">
+          <div>
+            <p id="upcoming-eyebrow" class="section-eyebrow">Coming up</p>
+            <h2 id="upcoming-heading">Upcoming events</h2>
+          </div>
+          <span id="upcoming-count" class="count" aria-label="Upcoming events">…</span>
+        </div>
+        <div id="upcoming-list" class="event-list" aria-live="polite"></div>
+        <div id="upcoming-empty" class="empty-state" hidden>
+          <h3 id="empty-title">No events announced just yet</h3>
+          <p id="empty-description">New activities are in the works. Check back soon to find out what the branch is planning.</p>
+        </div>
+      </section>
+
+      <section id="past-section" class="past-section" aria-labelledby="past-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <p id="past-eyebrow" class="section-eyebrow">Memories we've made</p>
+            <h2 id="past-heading">Past events</h2>
+          </div>
+        </div>
+        <div id="past-list" class="event-list"></div>
+      </section>
+    </main>
+  </body>
+</html>
