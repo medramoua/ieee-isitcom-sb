@@ -49,8 +49,6 @@ isitcom-ieee/
 │  ├─ schema.prisma
 │  ├─ seed.ts                      # super admin + settings (P1), sample content (P3)
 │  └─ migrations/
-├─ messages/                       # next-intl dictionaries
-│  ├─ fr.json  en.json
 ├─ public/
 │  ├─ logos/ (ieee.svg, isitcom.svg, branch.svg — placeholders)
 │  └─ fonts/ (Inter)
@@ -58,6 +56,7 @@ isitcom-ieee/
 │  ├─ middleware.ts                # next-intl for public, auth guard for /admin
 │  ├─ i18n/
 │  │  ├─ routing.ts  request.ts  navigation.ts
+│  │  └─ messages/                 # next-intl dictionaries (fr.json, en.json)
 │  ├─ app/
 │  │  ├─ [locale]/
 │  │  │  ├─ layout.tsx             # <html lang dir>, fonts, theme + intl providers

@@ -1,6 +1,6 @@
 import { routing, type Locale } from "@/i18n/routing";
-import en from "../../../../messages/en.json";
-import fr from "../../../../messages/fr.json";
+import en from "@/i18n/messages/en.json";
+import fr from "@/i18n/messages/fr.json";
 
 export async function GET(request: Request) {
   const locale = new URL(request.url).searchParams.get("locale");

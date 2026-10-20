@@ -8,7 +8,3 @@ out
 next-env.d.ts
 .vercel
 .DS_Store
-node_modules
-.next
-.env
-.env.*

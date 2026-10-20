@@ -9,19 +9,18 @@ You do not need to understand every file to work on the website. Most changes st
 3. **`src/features/` contains server behavior** behind features, such as login, permissions, and editing content.
 4. **`src/lib/` contains shared services** used by multiple features, such as the database, email, and audit log.
 
-For example, the admin events list is rendered by `public/admin.js`. It fetches protected content through `src/app/api/admin/`; server-side validation and Prisma writes remain in `src/features/content/actions.ts`.
+For example, the admin events list is rendered by `public/js/admin.js`. It fetches protected content through `src/app/api/admin/`; server-side validation and Prisma writes remain in `src/features/content/actions.ts`.
 
 ## The folders
 
 | Folder | What belongs there |
 |---|---|
-| `public/` | Static site and admin interfaces: `index.html`, `events.html`, `admin.html`, their CSS, and their JavaScript. |
+| `public/` | Static pages: `index.html`, `events.html`, `admin.html`. Styles are in `public/css/`, browser JavaScript in `public/js/`. |
 | `src/app/api/` | TypeScript backend endpoints for database-backed content, admin actions, translations, and NextAuth. |
 | `src/features/auth/` | Sign-in, password recovery, permission rules, and role checks. |
 | `src/features/content/` | Server validation and save/delete behavior for events, news, and projects. |
 | `src/lib/` | Shared technical services: Prisma database connection, email, audit logging, rate limiting, and request helpers. |
-| `src/i18n/` | Which languages are enabled and how language routing works. |
-| `messages/` | Text shown to website visitors, separated by language. |
+| `src/i18n/` | Which languages are enabled, how language routing works, and the text shown to visitors (`src/i18n/messages/fr.json` and `en.json`). |
 | `prisma/` | Database structure, migrations, and the initial admin seed. |
 
 The current source tree, in short:
@@ -29,16 +28,15 @@ The current source tree, in short:
 ```text
 public/
 ├─ index.html           Home page markup
-├─ home.js              Home page translation and interactions
 ├─ events.html          Events page markup
-├─ events.js            Live event loading and rendering
 ├─ admin.html           Admin page shell
-└─ *.css                Page styling
+├─ css/                 site.css (home), events.css, admin.css
+└─ js/                  home.js, events.js, admin.js
 
 src/
 ├─ app/api/             TypeScript API routes
 ├─ features/            Authentication and content behavior
-├─ i18n/                Language configuration
+├─ i18n/                Language config + messages/ (fr.json, en.json)
 ├─ lib/                 Shared services such as database and email
 └─ middleware.ts        Public URL mapping and admin access checks
 ```
@@ -52,7 +50,7 @@ The backend still uses Next.js conventions:
 
 ### Change the home page
 
-Edit `public/index.html` for structure, `public/site.css` for styling, and `public/home.js` for interactions and translation loading. Edit `messages/fr.json` or `messages/en.json` for text. Keep the translation key names in both files in sync.
+Edit `public/index.html` for structure, `public/css/site.css` for styling, and `public/js/home.js` for interactions and translation loading. Edit `src/i18n/messages/fr.json` or `en.json` for text. Keep the translation key names in both files in sync.
 
 ### Add or edit an event, news item, or project
 
@@ -64,7 +62,7 @@ The admin routes are:
 
 Their shared form and save logic live in `src/features/content/`. The `[kind]` folder in the route path is Next.js shorthand for one of those three content types.
 
-Published events appear on the public `/events` page (English: `/en/events`). Drafts and events scheduled for the future stay hidden until their publication time. The static UI is in `public/events.*`; the list data comes from `src/app/api/events/`.
+Published events appear on the public `/events` page (English: `/en/events`). Drafts and events scheduled for the future stay hidden until their publication time. The static UI is `public/events.html`, `public/css/events.css`, and `public/js/events.js`; the list data comes from `src/app/api/events/`.
 
 ### Change who can use the admin
 

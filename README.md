@@ -44,13 +44,13 @@ see **§4 Raw SQL migration** in `docs/ARCHITECTURE.md`.
 
 | I want to… | Start here |
 |---|---|
-| Change the home page layout | `public/index.html`, `public/home.js`, and `public/site.css` |
-| Change French or English wording | `messages/fr.json` or `messages/en.json` |
-| Change the events page | `public/events.html`, `public/events.js`, and `public/events.css` |
-| Change admin UI | `public/admin.html`, `public/admin.js`, and `public/admin.css` |
+| Change the home page layout | `public/index.html`, `public/js/home.js`, and `public/css/site.css` |
+| Change French or English wording | `src/i18n/messages/fr.json` or `en.json` |
+| Change the events page | `public/events.html`, `public/js/events.js`, and `public/css/events.css` |
+| Change admin UI | `public/admin.html`, `public/js/admin.js`, and `public/css/admin.css` |
 | Change protected data APIs | `src/app/api/` |
 | Change content create/edit behavior | `src/features/content/actions.ts` |
 | Change login, roles, or password rules | `src/features/auth/` |
 | Change database tables | `prisma/schema.prisma` |
 
-Page interfaces are static HTML, CSS, and browser JavaScript under `public/`. The Next.js middleware maps the public URLs to those files, while TypeScript API routes keep database, authentication, and validation work on the server.
+Page interfaces are static HTML in `public/`, with CSS in `public/css/` and browser JavaScript in `public/js/`. The Next.js middleware maps the public URLs to those files, while TypeScript API routes keep database, authentication, and validation work on the server.
