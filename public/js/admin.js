@@ -47,6 +47,28 @@
     "Événements": "Events",
     "Actualités": "News",
     "Projets": "Projects",
+    "Administrateurs": "Administrators",
+    "Gestion des administrateurs": "Admin management",
+    "Créer un administrateur": "Create an administrator",
+    "Créez le compte Admin et choisissez un mot de passe temporaire. L’administrateur devra le changer à sa première connexion.": "Create the Admin account and choose a temporary password. The administrator must change it at first sign-in.",
+    "Nom complet": "Full name",
+    "Mot de passe temporaire": "Temporary password",
+    "Confirmer le mot de passe": "Confirm password",
+    "12 caractères minimum, avec au moins une lettre et un chiffre.": "At least 12 characters, including one letter and one number.",
+    "Compte administrateur créé. Il devra changer son mot de passe à sa première connexion.": "Admin account created. They must change their password at first sign-in.",
+    "Créer le compte": "Create account",
+    "Administrateurs existants": "Existing administrators",
+    "Nom": "Name",
+    "État": "Status",
+    "Actif": "Active",
+    "Inactif": "Inactive",
+    "Créé le": "Created",
+    "Dernière connexion": "Last sign-in",
+    "Jamais": "Never",
+    "Aucun administrateur pour le moment.": "No administrators yet.",
+    "Adresse email déjà utilisée.": "That email address is already in use.",
+    "Un compte existe déjà avec cette adresse email.": "An account already exists with this email address.",
+    "L’envoi des emails n’est pas configuré.": "Email delivery is not configured.",
     "Photos, équipe & partenaires": "Photos, team & partners",
     "Bonjour": "Hello",
     "Voici un aperçu du contenu de la branche.": "Here is an overview of branch content.",
@@ -211,6 +233,39 @@
   };
   const formField = (id, label, type = "text", value = "", attrs = "") =>
     `<div class="field"><label for="${id}">${label}</label><input id="${id}" name="${id}" type="${type}" value="${escapeHtml(value)}" ${attrs}></div>`;
+  const renderUsersManager = async () => {
+    const data = await api("/api/admin/users");
+    const date = (value) => value
+      ? new Intl.DateTimeFormat(locale === "fr" ? "fr-TN" : "en", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value))
+      : "Jamais";
+    const rows = data.users.length
+      ? data.users.map((user) => `<tr><td>${escapeHtml(user.name)}</td><td>${escapeHtml(user.email)}</td><td>${user.isActive ? "Actif" : "Inactif"}</td><td>${escapeHtml(date(user.createdAt))}</td><td>${escapeHtml(date(user.lastLoginAt))}</td></tr>`).join("")
+      : '<tr><td colspan="5" class="empty-row">Aucun administrateur pour le moment.</td></tr>';
+    document.getElementById("panel-content").innerHTML = `<div class="page-heading"><div><p class="page-kicker">Gestion des administrateurs</p><h1>Administrateurs</h1></div></div><section class="panel-card"><h2>Créer un administrateur</h2><p class="field-hint">Créez le compte Admin et choisissez un mot de passe temporaire. L’administrateur devra le changer à sa première connexion.</p><form id="admin-user-form" class="content-form"><div class="form-grid">${formField("name", "Nom complet", "text", "", 'required maxlength="120" autocomplete="name"')}${formField("email", "Email", "email", "", 'required maxlength="254" autocomplete="email"')}${formField("password", "Mot de passe temporaire", "password", "", 'required minlength="12" maxlength="128" autocomplete="new-password"')}<p class="field-hint">12 caractères minimum, avec au moins une lettre et un chiffre.</p>${formField("confirm", "Confirmer le mot de passe", "password", "", 'required minlength="12" maxlength="128" autocomplete="new-password"')}</div><p id="form-error" class="form-error" role="alert" hidden></p><button id="create-admin" class="button" type="submit">Créer le compte</button></form></section><section class="panel-card table-wrap"><h2>Administrateurs existants</h2><table><thead><tr><th>Nom</th><th>Email</th><th>État</th><th>Créé le</th><th>Dernière connexion</th></tr></thead><tbody>${rows}</tbody></table></section>`;
+    document.getElementById("admin-user-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const button = document.getElementById("create-admin");
+      const error = document.getElementById("form-error");
+      error.hidden = true;
+      button.disabled = true;
+      try {
+        const payload = Object.fromEntries(new FormData(form));
+        const result = await api("/api/admin/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        showToast("Compte administrateur créé. Il devra changer son mot de passe à sa première connexion.");
+        await renderUsersManager();
+      } catch (reason) {
+        error.textContent = reason.message || "Une erreur est survenue.";
+        error.hidden = false;
+      } finally {
+        if (document.body.contains(button)) button.disabled = false;
+      }
+    });
+  };
   const imageUploader = (value) => `<div class="field image-field"><label for="coverImageFile">Photo de couverture (facultatif)</label><input id="coverImage" name="coverImage" type="hidden" value="${escapeHtml(value.coverImage)}"><input id="coverImageFile" class="image-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><div id="image-dropzone" class="image-dropzone"><strong>Déposez une photo ici</strong><span>JPEG, PNG, WebP ou GIF · 8 Mo maximum</span><button id="choose-image" class="button secondary" type="button">Choisir une photo</button></div><p id="image-status" class="field-hint" aria-live="polite"></p><p id="image-error" class="form-error image-error" role="alert" hidden></p><div id="image-preview" class="image-preview"${value.coverImageUrl ? "" : " hidden"}><img id="image-preview-img" src="${escapeHtml(value.coverImageUrl || "")}" alt="Aperçu de la photo"><button id="remove-image" class="button secondary" type="button">Retirer la photo</button></div></div>`;
   const authPage = (title, description, fields, footer, submitLabel, onSubmit) => {
     root.innerHTML = `${languageSwitch()}<main class="auth-page"><div class="auth-wrap"><div class="auth-brand"><span class="auth-logo">IEEE</span><span>IEEE ISITCom</span></div><section class="auth-card"><h1>${title}</h1><p class="auth-description">${description}</p><form id="auth-form" novalidate>${fields}<p id="form-error" class="form-error" role="alert" hidden></p><p id="form-success" class="form-success" role="status" hidden></p><button class="button full" type="submit">${submitLabel}</button></form></section><div class="auth-footer">${footer}</div></div></main>`;
@@ -313,7 +368,7 @@
       location.replace("/admin/change-password");
       return;
     }
-    root.innerHTML = `<div class="panel-shell"><aside class="sidebar"><a class="sidebar-brand" href="/admin">IEEE ISITCom <span>Admin</span></a><nav aria-label="Navigation d’administration"><a href="/admin">Tableau de bord</a>${session.canEdit ? '<a href="/admin/content/events">Événements</a><a href="/admin/content/news">Actualités</a><a href="/admin/content/projects">Projets</a>' : ""}${session.canManage ? '<a href="/admin/site">Contenu de la page d’accueil</a>' : ""}</nav></aside><div class="panel-main"><header class="panel-header">${languageSwitch()}<span class="user-info">${escapeHtml(session.name)} · ${escapeHtml(session.roleLabel)}</span><button id="sign-out" class="button secondary" type="button">Déconnexion</button></header><main id="panel-content" class="page-content"></main></div></div>`;
+    root.innerHTML = `<div class="panel-shell"><aside class="sidebar"><a class="sidebar-brand" href="/admin">IEEE ISITCom <span>Admin</span></a><nav aria-label="Navigation d’administration"><a href="/admin">Tableau de bord</a>${session.canEdit ? '<a href="/admin/content/events">Événements</a><a href="/admin/content/news">Actualités</a><a href="/admin/content/projects">Projets</a>' : ""}${session.canManage ? '<a href="/admin/site">Contenu de la page d’accueil</a>' : ""}${session.canManageUsers ? '<a href="/admin/users">Administrateurs</a>' : ""}</nav></aside><div class="panel-main"><header class="panel-header">${languageSwitch()}<span class="user-info">${escapeHtml(session.name)} · ${escapeHtml(session.roleLabel)}</span><button id="sign-out" class="button secondary" type="button">Déconnexion</button></header><main id="panel-content" class="page-content"></main></div></div>`;
     document.getElementById("sign-out").addEventListener("click", async () => {
       const response = await fetch("/api/auth/csrf", { credentials: "same-origin" });
       const { csrfToken } = await response.json();
@@ -334,6 +389,11 @@
     if (route === "/admin/site") {
       if (!session.canManage) throw new Error("Accès refusé.");
       await renderSiteManager();
+      return;
+    }
+    if (route === "/admin/users") {
+      if (!session.canManageUsers) throw new Error("Accès refusé.");
+      await renderUsersManager();
       return;
     }
     if (!contentRoute) {

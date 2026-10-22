@@ -18,6 +18,16 @@ export const loginSchema = z.object({
 
 export const forgotPasswordSchema = z.object({ email: emailSchema });
 
+export const createAdminSchema = z.object({
+  name: z.string().trim().min(1, "Le nom est obligatoire.").max(120, "Le nom ne peut pas dépasser 120 caractères."),
+  email: emailSchema,
+  password: passwordSchema,
+  confirm: z.string(),
+}).refine((data) => data.password === data.confirm, {
+  path: ["confirm"],
+  message: "Les mots de passe ne correspondent pas.",
+});
+
 export const resetPasswordSchema = z
   .object({
     token: z.string().min(20).max(200),

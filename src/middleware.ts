@@ -31,13 +31,14 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Static public pages use a locale query instead of React route layouts.
+  // The homepage uses React; static subpages still use locale query parameters.
   let response: NextResponse;
-  if (pathname === "/" || pathname === "/fr" || pathname === "/en") {
+  if (pathname === "/") {
+    response = NextResponse.next();
+  } else if (pathname === "/fr" || pathname === "/en") {
     const url = req.nextUrl.clone();
-    url.pathname = "/index.html";
-    const locale = pathname === "/en" ? "en" : pathname === "/fr" ? "fr" : url.searchParams.get("locale");
-    url.search = locale ? `?locale=${locale}` : "";
+    url.pathname = "/";
+    url.search = `?locale=${pathname === "/en" ? "en" : "fr"}`;
     response = NextResponse.rewrite(url);
   } else if (pathname === "/events" || pathname === "/fr/events" || pathname === "/en/events") {
     const url = req.nextUrl.clone();

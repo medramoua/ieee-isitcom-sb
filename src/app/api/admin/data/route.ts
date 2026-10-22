@@ -72,6 +72,7 @@ export async function GET(request: Request) {
       canEdit: can(user.role, "content:edit"),
       canDelete: can(user.role, "content:delete"),
       canManage: can(user.role, "org:manage"),
+      canManageUsers: can(user.role, "users:manage"),
     });
   }
   if (user.mustChangePassword) {

@@ -39,6 +39,8 @@
 | Site settings | ❌ | ✅ | ✅ |
 | Users & roles, audit log | ❌ | ❌ | ✅ |
 
+Super Admins create Admin accounts through `/admin/users`. The server always assigns the `ADMIN` role, hashes a temporary password supplied by the Super Admin, marks the account to require a password change at first sign-in, and audits creation. The endpoint independently enforces the `users:manage` permission.
+
 ## 3. Planned folder structure
 
 This is the intended end-state, not a list of files that already exist. For the current code, use the beginner-friendly [project guide](./PROJECT-GUIDE.md).

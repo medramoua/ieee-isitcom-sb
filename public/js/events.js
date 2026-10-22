@@ -60,6 +60,7 @@
   document.documentElement.lang = locale;
   document.title = `${labels.title} | IEEE ISITCom`;
   document.querySelector('meta[name="description"]').content = labels.description;
+  window.updatePageMetadata?.(`${labels.title} | IEEE ISITCom`, labels.description, locale);
   document.querySelectorAll(".language-switch a").forEach((link) => {
     if (link.getAttribute("href").endsWith(`locale=${locale}`)) {
       link.setAttribute("aria-current", "true");

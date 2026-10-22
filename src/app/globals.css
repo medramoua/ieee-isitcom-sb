@@ -1,0 +1,13 @@
+@import "../../public/css/site.css";
+@import "../../public/css/molten-background.css";
+@import "../../public/css/glow-cursor.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --ring: 189 94% 43%;
+}

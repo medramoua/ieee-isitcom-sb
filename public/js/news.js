@@ -23,6 +23,7 @@
     const home = messages.home;
     document.documentElement.lang = locale;
     document.title = `${home.newsTitle} | IEEE ISITCom`;
+    window.updatePageMetadata?.(`${home.newsTitle} | IEEE ISITCom`, home.newsIntro, locale);
     [
       ["brand-subline", home.brandSubline], ["back-home", messages.nav.home],
       ["news-eyebrow", home.newsEyebrow], ["news-title", home.newsTitle],

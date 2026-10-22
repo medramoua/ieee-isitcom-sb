@@ -4,7 +4,7 @@ You do not need to understand every file to work on the website. Most changes st
 
 ## First, how a website request works
 
-1. **`public/` contains the page interfaces.** HTML describes the page, CSS styles it, and browser JavaScript handles interactions and fetches data.
+1. **`src/app/` and `src/components/` contain the homepage.** The remaining static pages are in `public/`; their CSS and browser JavaScript are in `public/css/` and `public/js/`.
 2. **`src/app/api/` contains server endpoints** for login, protected admin actions, translations, and database-backed content.
 3. **`src/features/` contains server behavior** behind features, such as login, permissions, and editing content.
 4. **`src/lib/` contains shared services** used by multiple features, such as the database, email, and audit log.
@@ -15,7 +15,9 @@ For example, the admin events list is rendered by `public/js/admin.js`. It fetch
 
 | Folder | What belongs there |
 |---|---|
-| `public/` | Static pages: `index.html`, `events.html`, `admin.html`. Styles are in `public/css/`, browser JavaScript in `public/js/`. |
+| `public/` | Static pages: `events.html`, `news.html`, `resources.html`, and `admin.html`. Shared styles are in `public/css/`; browser JavaScript is in `public/js/`. |
+| `src/app/` | The React homepage and Next.js API routes. |
+| `src/components/` | Reusable homepage sections and UI components. |
 | `src/app/api/` | TypeScript backend endpoints for database-backed content, admin actions, translations, and NextAuth. |
 | `src/features/auth/` | Sign-in, password recovery, permission rules, and role checks. |
 | `src/features/content/` | Server validation and save/delete behavior for events, news, and projects. |
@@ -27,14 +29,16 @@ The current source tree, in short:
 
 ```text
 public/
-├─ index.html           Home page markup
 ├─ events.html          Events page markup
+├─ news.html            News page markup
+├─ resources.html       Resources page markup
 ├─ admin.html           Admin page shell
-├─ css/                 site.css (home), events.css, admin.css
-└─ js/                  home.js, events.js, admin.js
+├─ css/                 Shared and page-specific styles
+└─ js/                  Browser interactions for static pages
 
 src/
-├─ app/api/             TypeScript API routes
+├─ app/                 React homepage + API routes
+├─ components/          Homepage sections and reusable UI
 ├─ features/            Authentication and content behavior
 ├─ i18n/                Language config + messages/ (fr.json, en.json)
 ├─ lib/                 Shared services such as database and email
@@ -50,7 +54,7 @@ The backend still uses Next.js conventions:
 
 ### Change the home page
 
-Edit `public/index.html` for structure, `public/css/site.css` for styling, and `public/js/home.js` for interactions and translation loading. Edit `src/i18n/messages/fr.json` or `en.json` for text. Keep the translation key names in both files in sync.
+The home page is a React page in `src/app/page.tsx`; its sections and data loading are in `src/components/site/home-page.tsx`. The reusable hover-reveal card component is in `src/components/ui/cards.tsx`, with its styles alongside it. Edit `src/i18n/messages/fr.json` and `en.json` for wording, keeping their translation keys in sync. Events, news, and resources remain static pages in `public/`.
 
 ### Add or edit an event, news item, or project
 
@@ -84,7 +88,7 @@ Edit `prisma/schema.prisma`, then create and apply a migration with `npx prisma 
 
 1. Find the matching task above instead of opening files at random.
 2. Change the page or feature file listed there.
-3. Run `npm run typecheck` and `npm run lint`.
+3. Run `npm test`, `npm run typecheck`, and `npm run lint`.
 4. Run `npm run dev` and test the page in your browser.
 
 You can ask for help by describing the screen or behavior you want to change; you do not need to know the name of the file first.

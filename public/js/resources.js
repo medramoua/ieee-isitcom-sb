@@ -17,6 +17,7 @@
     const resources = home.resources;
     document.documentElement.lang = locale;
     document.title = `${resources.title} | IEEE ISITCom`;
+    window.updatePageMetadata?.(`${resources.title} | IEEE ISITCom`, resources.intro, locale);
     [
       ["brand-subline", home.brandSubline], ["back-home", messages.nav.home],
       ["resources-eyebrow", resources.eyebrow], ["resources-title", resources.title],
