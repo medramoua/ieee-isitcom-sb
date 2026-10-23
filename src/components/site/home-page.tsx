@@ -224,8 +224,8 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           </div>
           <div className="hero-orbit" aria-hidden="true">
             <div className="orbit-card"><strong>IEEE</strong><span>ISITCom</span></div>
-            <p>{home.orbitOneLabel} · {home.orbitOneValue}</p>
-            <p>{home.orbitTwoLabel} · {home.orbitTwoValue}</p>
+            <p className="orbit-label orbit-label-one">ISITCOM</p>
+            <p className="orbit-label orbit-label-two">SB</p>
           </div>
         </section>
 
@@ -329,7 +329,10 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
 
         <section className="join-section" id="join">
           <div><p className="section-eyebrow">{home.joinEyebrow}</p><h2>{home.joinTitle}</h2><p>{home.joinDescription}</p></div>
-          <a className="button light" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noreferrer">{home.joinCta}</a>
+          <div className="join-actions">
+            <a className="button light" href="https://docs.google.com/forms/d/e/1FAIpQLSfwVr8wN9HID2Hp76hOteeJV0S9RIxNyTA09uc9tFSAQgW9rg/viewform" target="_blank" rel="noreferrer">{home.joinFormCta}</a>
+            <a className="button outline" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noreferrer">{home.joinCta}</a>
+          </div>
         </section>
 
         <section className="site-section sponsors-section" id="sponsors">

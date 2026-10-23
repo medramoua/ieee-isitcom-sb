@@ -74,9 +74,9 @@ a { color: inherit; }
 .orbit-card { z-index: 1; display: grid; width: 190px; height: 190px; align-content: center; justify-items: center; border: 1px solid #ffffff45; border-radius: 38px; background: linear-gradient(135deg,#0d5381,#071a2b); box-shadow: 0 30px 90px #0008,0 0 70px #0891b233; }
 .orbit-card strong { font-size: 2.3rem; }
 .orbit-card span { margin-top: 10px; color: #cffafe; font-size: .75rem; letter-spacing: .22em; }
-.hero-orbit p { position: absolute; max-width: 180px; padding: 12px 16px; border: 1px solid #ffffff20; border-radius: 12px; color: #dbeafe; background: #ffffff12; font-size: .8rem; }
-.hero-orbit p:nth-of-type(1) { top: 12%; right: 0; }
-.hero-orbit p:nth-of-type(2) { bottom: 12%; left: 0; }
+.hero-orbit .orbit-label { position: absolute; top: 50%; left: 50%; z-index: 2; margin: 0; padding: 10px 16px; border: 1px solid #ffffff35; border-radius: 999px; color: #e0f2fe; background: #071a2b; box-shadow: 0 8px 24px #0006; font-size: .78rem; font-weight: 750; letter-spacing: .12em; white-space: nowrap; }
+.orbit-label-one { transform: translate(-50%,-50%) rotate(-90deg) translateX(180px) rotate(90deg); animation: orbit-label-outer 34s linear infinite; }
+.orbit-label-two { transform: translate(-50%,-50%) rotate(90deg) translateX(130px) rotate(-90deg); animation: orbit-label-inner 24s linear infinite; }
 .site-section { padding: 90px max(24px, calc((100vw - 1200px) / 2)); }
 .site-section h2,.join-section h2 { margin: 14px 0; font-size: clamp(2rem,4vw,3.2rem); font-weight: 650; letter-spacing: -.04em; line-height: 1.15; }
 .about-section { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
@@ -150,6 +150,7 @@ a { color: inherit; }
 .news-card p { margin: 0; color: #64748b; font-size: .9rem; line-height: 1.7; white-space: pre-line; }
 .join-section { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin: 0 max(24px, calc((100vw - 1200px) / 2)) 72px; padding: 52px; border-radius: 30px; color: #fff; background: radial-gradient(ellipse at 90% 0%,#00629b88,transparent 45%),#071a2b; }
 .join-section > div { max-width: 660px; }
+.join-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .join-section p:not(.section-eyebrow) { color: #cbd5e1; line-height: 1.7; }
 .join-section .section-eyebrow { color: #a5f3fc; }
 .site-footer { display: flex; justify-content: space-between; gap: 20px; padding: 24px max(24px, calc((100vw - 1200px) / 2)); border-top: 1px solid #e2e8f0; color: #64748b; font-size: .82rem; }
@@ -178,6 +179,14 @@ a { color: inherit; }
 }
 @keyframes orbit-spin {
   to { transform: rotate(360deg); }
+}
+@keyframes orbit-label-outer {
+  from { transform: translate(-50%,-50%) rotate(-90deg) translateX(180px) rotate(90deg); }
+  to { transform: translate(-50%,-50%) rotate(270deg) translateX(180px) rotate(-270deg); }
+}
+@keyframes orbit-label-inner {
+  from { transform: translate(-50%,-50%) rotate(90deg) translateX(130px) rotate(-90deg); }
+  to { transform: translate(-50%,-50%) rotate(-270deg) translateX(130px) rotate(270deg); }
 }
 @keyframes reveal-rise {
   from { transform: translateY(24px) scale(.985); opacity: 0; }
