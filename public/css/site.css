@@ -69,8 +69,8 @@ a { color: inherit; }
 .hero-location { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 18px; border-top: 1px solid #ffffff20; color: #94a3b8; font-size: .82rem; }
 .hero-location strong { color: #fff; }
 .hero-orbit { position: relative; display: grid; min-height: 400px; place-items: center; animation: orbit-float 7s ease-in-out infinite; }
-.hero-orbit::before,.hero-orbit::after { position: absolute; width: 360px; height: 360px; border: 1px solid #ffffff1b; border-radius: 50%; content: ""; animation: orbit-spin 34s linear infinite; }
-.hero-orbit::after { width: 260px; height: 260px; border-style: dashed; border-color: #a5f3fc30; animation-duration: 24s; animation-direction: reverse; }
+.hero-orbit::before,.hero-orbit::after { position: absolute; width: 360px; height: 360px; border: 1px solid #ffffff2b; border-radius: 50%; content: ""; animation: orbit-spin 34s linear infinite; }
+.hero-orbit::after { width: 260px; height: 260px; border-style: dashed; border-color: #a5f3fc40; animation-duration: 24s; animation-direction: reverse; }
 .orbit-card { z-index: 1; display: grid; width: 190px; height: 190px; align-content: center; justify-items: center; border: 1px solid #ffffff45; border-radius: 38px; background: linear-gradient(135deg,#0d5381,#071a2b); box-shadow: 0 30px 90px #0008,0 0 70px #0891b233; }
 .orbit-card strong { font-size: 2.3rem; }
 .orbit-card span { margin-top: 10px; color: #cffafe; font-size: .75rem; letter-spacing: .22em; }
@@ -224,4 +224,6 @@ a { color: inherit; }
 @media(prefers-reduced-motion:reduce) {
   html { scroll-behavior: auto; }
   *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  .orbit-label-one { animation-duration: 34s !important; animation-iteration-count: infinite !important; }
+  .orbit-label-two { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
 }
