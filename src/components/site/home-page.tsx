@@ -212,8 +212,8 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#dbeafe" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
           <path d="m38 94-8 23m33-23 8 23" stroke="#dbeafe" strokeWidth="12" strokeLinecap="round" />
           <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
-          <rect x="38" y="51" width="25" height="13" rx="3" fill="#0c2942" stroke="#38bdf8" strokeWidth="1.5" />
-          <text x="50.5" y="60.5" textAnchor="middle" fill="#fff" fontSize="6.5" fontWeight="800" stroke="#0c2942" strokeWidth=".5" paintOrder="stroke">AESS</text>
+          <rect x="37" y="50" width="27" height="17" rx="3" fill="#0c2942" stroke="#38bdf8" strokeWidth="1.5" />
+          <text x="50.5" y="62.5" textAnchor="middle" fill="#fff" fontSize="8.5" fontWeight="900" stroke="#0c2942" strokeWidth=".7" paintOrder="stroke">AESS</text>
           <rect x="43" y="69" width="17" height="18" rx="5" fill="#38bdf8" />
           <circle cx="51" cy="23" r="20" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
           <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#0c2942" stroke="#7dd3fc" strokeWidth="2" />
@@ -235,12 +235,12 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <rect x="65" y="49" width="8" height="19" rx="3" fill="#831843" stroke="#f9a8d4" strokeWidth="2" />
         </svg>
         <svg className="space-astronaut space-robot" viewBox="0 0 100 130" fill="none">
-          <path d="M50 14V6m-5 0a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" stroke="#cbd5e1" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-          <rect x="25" y="17" width="50" height="37" rx="9" fill="#f8fafc" stroke="#64748b" strokeWidth="4" />
-          <path d="M20 30c-7 2-7 10 0 12m60-12c7 2 7 10 0 12" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
-          <circle cx="39" cy="33" r="3" fill="#334155" />
-          <circle cx="61" cy="33" r="3" fill="#334155" />
-          <path d="M45 42h10" stroke="#334155" strokeWidth="3" strokeLinecap="round" />
+          <path d="M50 14V6m-5 0a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" stroke="#22c55e" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="25" y="17" width="50" height="37" rx="9" fill="#dcfce7" stroke="#22c55e" strokeWidth="4" />
+          <path d="M20 30c-7 2-7 10 0 12m60-12c7 2 7 10 0 12" stroke="#22c55e" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="39" cy="33" r="3" fill="#14532d" />
+          <circle cx="61" cy="33" r="3" fill="#14532d" />
+          <path d="M45 42h10" stroke="#14532d" strokeWidth="3" strokeLinecap="round" />
           <rect x="25" y="60" width="50" height="42" rx="8" fill="#f0fdf4" stroke="#22c55e" strokeWidth="4" />
           <path d="M30 63h40v17c-9 12-23 18-40 19V63Z" fill="#dcfce7" />
           <rect x="35" y="82" width="30" height="15" rx="4" fill="#14532d" stroke="#22c55e" strokeWidth="1.5" />
