@@ -109,17 +109,16 @@ a { color: inherit; }
 .hero-location strong { color: #fff; }
 .hero-orbit { position: relative; display: grid; min-height: 560px; place-items: center; animation: orbit-float 7s ease-in-out infinite; }
 .hero-orbit::before,.hero-orbit::after { position: absolute; width: 540px; height: 540px; border: 1px solid #ffffff2b; border-radius: 50%; content: ""; animation: orbit-spin 34s linear infinite; }
-.hero-orbit::after { display: none; }
+.hero-orbit::after { width: 360px; height: 360px; border-style: dashed; border-color: #a5f3fc40; animation-duration: 24s; animation-direction: reverse; }
 .orbit-card { z-index: 1; display: grid; width: 190px; height: 190px; align-content: center; justify-items: center; border: 1px solid #ffffff45; border-radius: 38px; background: linear-gradient(135deg,#0d5381,#071a2b); box-shadow: 0 30px 90px #0008,0 0 70px #0891b233; }
 .orbit-card strong { font-family: var(--font-display); font-size: 2.3rem; }
 .orbit-card span { margin-top: 10px; color: #cffafe; font-size: .75rem; letter-spacing: .22em; }
 .hero-orbit .orbit-label { position: absolute; top: 50%; left: 50%; z-index: 2; display: grid; place-items: center; margin: 0; border-radius: 50%; font-weight: 750; white-space: nowrap; }
 .orbit-label-one { width: 84px; height: 84px; border: 1px solid #7dd3fc; color: #e0f2fe; background: radial-gradient(circle at 38% 34%,#bae6fd,#164e63 46%,#082338 76%); box-shadow: 0 0 24px #38bdf866,inset 0 0 18px #7dd3fc44; font-size: .62rem; letter-spacing: .055em; }
 .orbit-label-one::before { position: absolute; z-index: 0; inset: -14px; border-radius: 50%; background: repeating-conic-gradient(#7dd3fc 0deg 3deg,transparent 3deg 30deg); content: ""; mask: radial-gradient(transparent 0 66%,#000 69% 80%,transparent 83%); }
-.orbit-label-two { width: 47px; height: 47px; border: 0; background: transparent; box-shadow: none; }
-.orbit-label-two::before { position: absolute; inset: 0; border-radius: 50%; background: #f8fafc; box-shadow: 0 0 10px #dbeafe88; content: ""; }
+.orbit-label-two { width: 47px; height: 47px; border: 1px solid #dbeafe; color: #334155; background: #0c2942; box-shadow: 0 0 14px #7dd3fc44,inset 0 0 8px #7dd3fc16; font-size: .46rem; letter-spacing: .035em; }
+.orbit-label-two::before { position: absolute; inset: 2px; border: 1px solid #f1f7fc; border-radius: 50%; background: radial-gradient(circle at 29% 31%,#8da5ba 0 2px,#cbd8e3 3px,transparent 4px),radial-gradient(circle at 68% 26%,#91a7ba 0 1px,#d1dce6 2px,transparent 3px),radial-gradient(circle at 67% 67%,#8da5ba 0 2px,#cbd8e3 3px,transparent 4px),radial-gradient(circle at 36% 72%,#a2b5c5 0 1px,transparent 3px),radial-gradient(circle at 52% 47%,#f8fafc,#b9c9d7 72%); box-shadow: 0 0 8px #7dd3fc88; content: ""; }
 .orbit-label-two::after { display: none; }
-.orbit-label-two span { display: none; }
 .hero-orbit .orbit-label span { position: relative; z-index: 1; }
 .orbit-label-one { transform: translate(-50%,-50%) rotate(-90deg) translateX(270px) rotate(90deg); animation: orbit-label-outer 34s linear infinite; }
 .orbit-label-two { transform: translate(-50%,-50%) rotate(90deg) translateX(180px) rotate(-90deg); animation: orbit-label-inner 24s linear infinite; }
@@ -291,6 +290,7 @@ a { color: inherit; }
   *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .orbit-label-one { animation-duration: 34s !important; animation-iteration-count: infinite !important; }
   .orbit-label-two { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
+  .hero-orbit::after { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
   .orbit-satellite-track::before { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
   .orbit-satellite { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-meteor { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
