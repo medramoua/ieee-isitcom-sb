@@ -82,7 +82,12 @@ export default function PhotoWheelGallery({
   if (photos.length === 0) return null;
 
   return (
-    <div className="photo-wheel" ref={rootRef}>
+    <div
+      className="photo-wheel"
+      ref={rootRef}
+      onContextMenu={(event) => event.preventDefault()}
+      onDragStart={(event) => event.preventDefault()}
+    >
       <WorksWheel
         items={items}
         label={label}
@@ -125,6 +130,7 @@ export default function PhotoWheelGallery({
             className="photo-wheel__image"
             src={photos[selectedIndex].url}
             alt={items[selectedIndex].title}
+            draggable={false}
           />
           {photos.length > 1 && (
             <button

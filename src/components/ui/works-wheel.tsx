@@ -45,6 +45,7 @@ export function WorksWheel({
   const wakeRef = React.useRef<() => void>(() => {});
   const dragY = React.useRef<number | null>(null);
   const settling = React.useRef(0);
+  const hoveredCard = React.useRef<number | null>(null);
   const turn = React.useRef(0);
   const target = React.useRef(0);
   const idPrefix = React.useId();
@@ -109,7 +110,9 @@ export function WorksWheel({
           `scale(${scale})`,
         ].join(" ");
         card.style.opacity = distanceFromCenter > 2.15 ? "0" : "1";
-        card.style.zIndex = String(100 - Math.round(distanceFromCenter * 10));
+        card.style.zIndex = hoveredCard.current === index
+          ? "120"
+          : String(100 - Math.round(distanceFromCenter * 10));
         card.style.pointerEvents = distanceFromCenter > 1.6 ? "none" : "auto";
       }
 
@@ -163,7 +166,7 @@ export function WorksWheel({
   return (
     <section
       aria-label={label}
-      className={cn("relative h-full min-h-[24rem] w-full overflow-hidden select-none", className)}
+      className={cn("relative h-full min-h-0 w-full overflow-hidden select-none", className)}
       {...props}
     >
       <div
@@ -212,6 +215,28 @@ export function WorksWheel({
             "aria-selected": index === active,
             ref: (node: HTMLElement | null) => {
               cardRefs.current[index] = node;
+            },
+            onPointerEnter: (event: React.PointerEvent<HTMLElement>) => {
+              if (event.pointerType !== "touch") {
+                hoveredCard.current = index;
+                wakeRef.current();
+              }
+            },
+            onPointerLeave: () => {
+              if (hoveredCard.current === index) {
+                hoveredCard.current = null;
+                wakeRef.current();
+              }
+            },
+            onFocus: () => {
+              hoveredCard.current = index;
+              wakeRef.current();
+            },
+            onBlur: () => {
+              if (hoveredCard.current === index) {
+                hoveredCard.current = null;
+                wakeRef.current();
+              }
             },
             className: "absolute left-1/2 top-1/2 block overflow-hidden rounded-2xl border border-white/15 bg-[#071c2e] p-0 shadow-[0_24px_70px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow] duration-300 hover:border-cyan-300 hover:shadow-[0_0_0_2px_rgba(103,232,249,0.35),0_24px_70px_rgba(0,0,0,0.45)] focus-visible:border-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300 [backface-visibility:hidden]",
             style: {

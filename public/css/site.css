@@ -34,7 +34,7 @@ a { color: inherit; }
 .explore-nav-menu > summary::-webkit-details-marker { display: none; }
 .explore-nav-chevron { transition: transform .2s ease; }
 .explore-nav-menu[open] > summary .explore-nav-chevron { transform: rotate(180deg); }
-.explore-menu-panel { position: absolute; top: calc(100% + 17px); left: 0; z-index: 30; display: grid; width: min(600px,calc(100vw - 48px)); max-height: calc(100vh - 120px); grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin: 0; padding: 10px; overflow-y: auto; border: 1px solid #ffffff20; border-radius: 18px; background: #0b2236f7; box-shadow: 0 24px 60px #0008; list-style: none; }
+.explore-menu-panel { position: absolute; top: 100%; left: 0; z-index: 30; display: grid; width: min(600px,calc(100vw - 48px)); max-height: calc(100vh - 120px); grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin: 0; padding: 10px; overflow-y: auto; border: 1px solid #ffffff20; border-radius: 18px; background: #0b2236f7; box-shadow: 0 24px 60px #0008; list-style: none; }
 .explore-menu-link { display: flex; min-height: 76px; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 12px; color: #fff !important; text-decoration: none; transition: background .2s ease; }
 .explore-menu-link:hover,.explore-menu-link:focus-visible { background: #ffffff12; outline: none; }
 .explore-menu-icon { flex: 0 0 auto; margin-top: 2px; color: #a5f3fc; }

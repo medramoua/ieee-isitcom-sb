@@ -182,7 +182,21 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <span><strong>ISITCom</strong><small>{home.brandSubline}</small></span>
         </a>
         <nav className="main-tabs" aria-label={home.navigation}>
-          <details className="explore-nav-menu">
+          <details
+            className="explore-nav-menu"
+            onPointerEnter={(event) => {
+              if (event.pointerType === "mouse") event.currentTarget.open = true;
+            }}
+            onPointerLeave={(event) => {
+              const focusedElement = document.activeElement;
+              const hasKeyboardFocus = focusedElement instanceof HTMLElement &&
+                focusedElement.matches(":focus-visible") &&
+                event.currentTarget.contains(focusedElement);
+              if (event.pointerType === "mouse" && !hasKeyboardFocus) {
+                event.currentTarget.open = false;
+              }
+            }}
+          >
             <summary>
               {home.navExplore}
               <ChevronDown className="explore-nav-chevron" size={15} aria-hidden="true" />
