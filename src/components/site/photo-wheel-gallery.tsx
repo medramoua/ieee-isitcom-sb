@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 import "./photo-wheel-gallery.css";
 
@@ -86,7 +85,7 @@ export default function PhotoWheelGallery({
         onItemHover={showPreview}
         onItemLeave={hidePreview}
       />
-      {preview && typeof document !== "undefined" && createPortal(
+      {preview && (
         <div
           className={`photo-wheel__preview${preview.visible ? " photo-wheel__preview--visible" : ""}`}
           role="img"
@@ -102,8 +101,7 @@ export default function PhotoWheelGallery({
             draggable={false}
             onContextMenu={(event) => event.preventDefault()}
           />
-        </div>,
-        document.body,
+        </div>
       )}
     </div>
   );
