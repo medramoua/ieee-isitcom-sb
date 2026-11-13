@@ -31,9 +31,9 @@ a { color: inherit; }
 .space-spark--three { top: 82%; right: 31%; width: 5px; height: 5px; animation-delay: -2s; }
 .space-satellite { position: absolute; top: 20%; right: 16%; display: block; width: 112px; height: 66px; opacity: .62; filter: drop-shadow(0 0 8px #7dd3fc77); animation: space-satellite-drift 26s ease-in-out infinite; }
 .space-satellite svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.space-astronaut { position: absolute; top: 34%; left: 74%; width: 78px; height: 102px; opacity: .64; filter: drop-shadow(0 0 10px #7dd3fc88); animation: space-astronaut-fall 28s ease-in-out infinite alternate; }
-.space-astronaut--female { top: 9%; left: 41%; animation-delay: -9s; filter: drop-shadow(0 0 10px #f472b688); }
-.space-robot { top: 46%; left: 88%; animation-delay: -18s; filter: drop-shadow(0 0 10px #7dd3fc88); }
+.space-astronaut { position: absolute; top: 34%; left: 74%; width: 78px; height: 102px; opacity: .92; filter: drop-shadow(0 0 12px #7dd3fcaa); animation: space-astronaut-fall 28s ease-in-out infinite alternate; }
+.space-astronaut--female { top: 9%; left: 41%; animation-delay: -9s; filter: drop-shadow(0 0 12px #f472b6bb); }
+.space-robot { top: 46%; left: 88%; animation-delay: -18s; filter: drop-shadow(0 0 12px #22c55eaa); }
 .site-error { margin: 0; padding: 12px 20px; color: #b91c1c; background: #fef2f2; text-align: center; }
 .site-header {
   position: sticky; top: 12px; z-index: 20; display: flex; width: min(1200px,calc(100% - 48px)); min-height: 68px; align-items: center; justify-content: space-between; gap: 18px;
