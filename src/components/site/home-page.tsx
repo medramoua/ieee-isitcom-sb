@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BadgeCheck, BookOpen, Bot, CalendarDays, ChevronDown, Newspaper, Rocket, Trophy } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, Bot, CalendarDays, ChevronDown, Newspaper, Rocket, Trophy } from "lucide-react";
 import HoverRevealCards, { type CardItem } from "@/components/ui/cards";
 import { TextReveal } from "@/components/ui/text-reveal";
 import PhotoWheelGallery from "@/components/site/photo-wheel-gallery";
@@ -227,6 +227,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
             rel="noreferrer"
           >
             {nav.join}
+            <ArrowRight className="join-nav-arrow" size={15} aria-hidden="true" />
           </a>
         </nav>
         <div className="header-actions" aria-label={home.chooseLanguage}>
