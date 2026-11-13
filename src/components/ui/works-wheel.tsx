@@ -15,7 +15,11 @@ export interface WorksWheelProps extends Omit<
   "children"
 > {
   items: WorksWheelItem[];
-  onItemSelect?: (item: WorksWheelItem, index: number) => void;
+  onItemHover?: (
+    item: WorksWheelItem,
+    index: number,
+    position: { x: number; y: number },
+  ) => void;
   autoPlay?: boolean;
   label?: string;
 }
@@ -34,7 +38,7 @@ type Stage = { width: number; height: number };
 
 export function WorksWheel({
   items,
-  onItemSelect,
+  onItemHover,
   autoPlay = false,
   label = "Photo gallery",
   className,
@@ -219,6 +223,10 @@ export function WorksWheel({
             onPointerEnter: (event: React.PointerEvent<HTMLElement>) => {
               if (event.pointerType !== "touch") {
                 hoveredCard.current = index;
+                onItemHover?.(item, index, {
+                  x: event.clientX,
+                  y: event.clientY,
+                });
                 wakeRef.current();
               }
             },
@@ -228,8 +236,14 @@ export function WorksWheel({
                 wakeRef.current();
               }
             },
-            onFocus: () => {
+            onFocus: (event: React.FocusEvent<HTMLElement>) => {
+              if (!event.currentTarget.matches(":focus-visible")) return;
               hoveredCard.current = index;
+              const bounds = event.currentTarget.getBoundingClientRect();
+              onItemHover?.(item, index, {
+                x: bounds.left + bounds.width / 2,
+                y: bounds.top + bounds.height / 2,
+              });
               wakeRef.current();
             },
             onBlur: () => {
@@ -259,20 +273,16 @@ export function WorksWheel({
           if (item.href) {
             return <a {...commonProps} href={item.href} key={`${index}-${item.image}`}>{image}</a>;
           }
-          if (onItemSelect) {
-            return (
-              <button
-                {...commonProps}
-                key={`${index}-${item.image}`}
-                type="button"
-                className={`${commonProps.className} cursor-zoom-in`}
-                onClick={() => onItemSelect(item, index)}
-              >
-                {image}
-              </button>
-            );
-          }
-          return <div {...commonProps} key={`${index}-${item.image}`}>{image}</div>;
+          return (
+            <button
+              {...commonProps}
+              key={`${index}-${item.image}`}
+              type="button"
+              className={`${commonProps.className} cursor-zoom-in`}
+            >
+              {image}
+            </button>
+          );
         })}
       </div>
     </section>

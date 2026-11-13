@@ -292,9 +292,6 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
               photos={galleryItems}
               label={home.galleryCarouselLabel}
               photoLabel={home.galleryPhoto}
-              closeLabel={home.galleryClose}
-              previousLabel={home.galleryPrevious}
-              nextLabel={home.galleryNext}
             />
           ) : (
             !siteError && <p className="empty-note">{home.galleryEmpty}</p>
