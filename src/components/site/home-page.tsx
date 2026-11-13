@@ -184,8 +184,8 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
               style={{
                 top: `${(index * 37) % 105 - 2}%`,
                 left: `${(index * 47) % 105 - 2}%`,
-                animationDelay: `${-((index * 2.71) % 24)}s`,
-                animationDuration: `${18 + (index % 7) * 2}s`,
+                animationDelay: `${-((index * 7.31) % 68)}s`,
+                animationDuration: `${44 + (index % 7) * 4}s`,
               }}
             />
           ))}
