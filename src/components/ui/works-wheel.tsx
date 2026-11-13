@@ -15,11 +15,8 @@ export interface WorksWheelProps extends Omit<
   "children"
 > {
   items: WorksWheelItem[];
-  onItemHover?: (
-    item: WorksWheelItem,
-    index: number,
-    position: { x: number; y: number },
-  ) => void;
+  onItemHover?: (item: WorksWheelItem, index: number) => void;
+  onItemLeave?: (index: number) => void;
   autoPlay?: boolean;
   label?: string;
 }
@@ -39,6 +36,7 @@ type Stage = { width: number; height: number };
 export function WorksWheel({
   items,
   onItemHover,
+  onItemLeave,
   autoPlay = false,
   label = "Photo gallery",
   className,
@@ -223,32 +221,27 @@ export function WorksWheel({
             onPointerEnter: (event: React.PointerEvent<HTMLElement>) => {
               if (event.pointerType !== "touch") {
                 hoveredCard.current = index;
-                onItemHover?.(item, index, {
-                  x: event.clientX,
-                  y: event.clientY,
-                });
+                onItemHover?.(item, index);
                 wakeRef.current();
               }
             },
             onPointerLeave: () => {
               if (hoveredCard.current === index) {
                 hoveredCard.current = null;
+                onItemLeave?.(index);
                 wakeRef.current();
               }
             },
             onFocus: (event: React.FocusEvent<HTMLElement>) => {
               if (!event.currentTarget.matches(":focus-visible")) return;
               hoveredCard.current = index;
-              const bounds = event.currentTarget.getBoundingClientRect();
-              onItemHover?.(item, index, {
-                x: bounds.left + bounds.width / 2,
-                y: bounds.top + bounds.height / 2,
-              });
+              onItemHover?.(item, index);
               wakeRef.current();
             },
             onBlur: () => {
               if (hoveredCard.current === index) {
                 hoveredCard.current = null;
+                onItemLeave?.(index);
                 wakeRef.current();
               }
             },
