@@ -15,14 +15,16 @@ a { color: inherit; }
 .space-decorations { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
 .home-page > header,.home-page > main { position: relative; z-index: 1; }
 .space-meteor-field { position: absolute; inset: 0; overflow: hidden; }
-.space-meteor { position: absolute; width: 60px; height: 1.5px; border-radius: 999px; opacity: 0; background: linear-gradient(90deg,transparent 0%,#818cf8 48%,#bae6fd 86%,#fff 100%); box-shadow: 0 0 4px 1px #6366f155; transform: rotate(135deg); animation: space-meteor-fall 54s linear infinite; }
+.space-meteor { position: absolute; width: 60px; height: 1.5px; border-radius: 999px; opacity: 0; background: linear-gradient(90deg,transparent 0%,#818cf8 48%,#bae6fd 86%,#fff 100%); box-shadow: 0 0 6px 2px #6366f199; transform: rotate(135deg); animation: space-meteor-fall 40s linear infinite; }
 .space-meteor::before { position: absolute; top: 50%; right: -1px; width: 4px; height: 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px 2px #bae6fd,0 0 9px 3px #818cf899; content: ""; transform: translateY(-50%); }
 .space-meteor::after { position: absolute; top: 50%; left: 0; width: 48px; height: 1px; border-radius: 999px; background: linear-gradient(90deg,transparent,#818cf8aa,#dbeafe); content: ""; transform: translateY(-50%); }
-.space-rock { position: absolute; width: 36px; height: 32px; border: 1px solid #e2e8f080; border-radius: 42% 58% 55% 45%; background: radial-gradient(ellipse at 32% 28%,#e2e8f0 0 8%,transparent 11%),radial-gradient(ellipse at 68% 63%,#0f172a 0 8%,transparent 11%),radial-gradient(ellipse at 47% 72%,#cbd5e1 0 7%,transparent 10%),linear-gradient(135deg,#cbd5e1,#64748b 48%,#26364c 78%,#0f172a); box-shadow: inset -6px -4px 7px #020617c9,0 0 12px #94a3b855; opacity: .58; animation: space-rock-drift 24s ease-in-out infinite alternate; }
+.space-rock { position: absolute; width: 36px; height: 32px; border: 1px solid #e2e8f080; border-radius: 42% 58% 55% 45%; background: radial-gradient(ellipse at 32% 28%,#e2e8f0 0 8%,transparent 11%),radial-gradient(ellipse at 68% 63%,#0f172a 0 8%,transparent 11%),radial-gradient(ellipse at 47% 72%,#cbd5e1 0 7%,transparent 10%),linear-gradient(135deg,#cbd5e1,#64748b 48%,#26364c 78%,#0f172a); box-shadow: inset -6px -4px 7px #020617c9,0 0 16px #94a3b877; opacity: .82; animation: space-rock-drift 16s ease-in-out infinite alternate; }
 .space-rock--one { top: 32%; left: 9%; }
-.space-rock--two { top: 67%; right: 12%; width: 27px; height: 24px; animation-delay: -8s; animation-duration: 30s; }
-.space-rock--three { top: 78%; left: 37%; width: 19px; height: 17px; animation-delay: -5s; animation-duration: 27s; }
-.space-rock--four { top: 18%; left: 57%; width: 15px; height: 13px; animation-delay: -11s; animation-duration: 34s; }
+.space-rock--two { top: 67%; right: 12%; width: 27px; height: 24px; animation-delay: -8s; animation-duration: 20s; }
+.space-rock--three { top: 78%; left: 37%; width: 19px; height: 17px; animation-delay: -5s; animation-duration: 18s; }
+.space-rock--four { top: 18%; left: 57%; width: 15px; height: 13px; animation-delay: -11s; animation-duration: 22s; }
+.space-rock--five { top: 45%; right: 31%; width: 23px; height: 20px; animation-delay: -13s; animation-duration: 19s; }
+.space-rock--six { top: 86%; right: 48%; width: 17px; height: 15px; animation-delay: -7s; animation-duration: 21s; }
 .space-spark { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #e0f2fe; box-shadow: 0 0 6px 2px #7dd3fc77; animation: space-sparkle 6s ease-in-out infinite alternate; }
 .space-spark--one { top: 25%; left: 29%; }
 .space-spark--two { top: 63%; left: 62%; width: 3px; height: 3px; animation-delay: -1s; }
@@ -90,7 +92,7 @@ a { color: inherit; }
   mask-image: linear-gradient(90deg,transparent,#000 30%,#000);
   animation: star-drift 90s linear infinite;
 }
-.hero-pointer-glow { position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(520px circle at var(--pointer-x,72%) var(--pointer-y,40%),#22d3ee20,transparent 68%); opacity: .75; transition: opacity .35s ease; }
+.hero-pointer-glow { position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(340px circle at var(--pointer-x,72%) var(--pointer-y,40%),#22d3ee10,transparent 68%); opacity: .42; transition: opacity .55s ease; }
 .hero-copy,.hero-orbit { position: relative; z-index: 1; }
 .hero-copy { animation: hero-copy-in .8s cubic-bezier(.2,.75,.25,1) both; }
 .page-hero { min-height: 390px; grid-template-columns: 1fr; }
@@ -240,13 +242,13 @@ a { color: inherit; }
 }
 @keyframes space-meteor-fall {
   0% { opacity: 0; transform: translate3d(0,0,0) rotate(135deg); }
-  6%,20% { opacity: .5; }
-  26% { opacity: 0; }
+  5%,21% { opacity: .82; }
+  27% { opacity: 0; }
   100% { opacity: 0; transform: translate3d(-110vw,110vh,0) rotate(135deg); }
 }
 @keyframes space-rock-drift {
   from { transform: translate3d(0,0,0) rotate(-18deg); }
-  to { transform: translate3d(14px,-10px,0) rotate(18deg); }
+  to { transform: translate3d(28px,-20px,0) rotate(42deg); }
 }
 @keyframes space-satellite-drift {
   0%,100% { transform: translate3d(0,0,0) rotate(-6deg); }
@@ -299,12 +301,14 @@ a { color: inherit; }
   .orbit-moon-track::before { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
   .orbit-satellite-track::before { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
   .orbit-satellite { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-meteor { animation-duration: 54s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-meteor { animation-duration: 40s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-astronaut { animation-duration: 28s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--one { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--two { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--three { animation-duration: 27s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--four { animation-duration: 34s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--one { animation-duration: 16s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--two { animation-duration: 20s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--three { animation-duration: 18s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--four { animation-duration: 22s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--five { animation-duration: 19s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--six { animation-duration: 21s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-satellite { animation-duration: 26s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-spark { animation-duration: 6s !important; animation-iteration-count: infinite !important; }
 }

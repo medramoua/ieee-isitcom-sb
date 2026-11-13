@@ -177,15 +177,15 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
     <div className="home-page">
       <div className="space-decorations" aria-hidden="true">
         <div className="space-meteor-field">
-          {Array.from({ length: 30 }, (_, index) => (
+          {Array.from({ length: 40 }, (_, index) => (
             <span
               className="space-meteor"
               key={index}
               style={{
                 top: `${(index * 37) % 105 - 2}%`,
                 left: `${(index * 47) % 105 - 2}%`,
-                animationDelay: `${-((index * 7.31) % 68)}s`,
-                animationDuration: `${44 + (index % 7) * 4}s`,
+                animationDelay: `${-((index * 7.31) % 52)}s`,
+                animationDuration: `${34 + (index % 7) * 3}s`,
               }}
             />
           ))}
@@ -194,6 +194,8 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
         <span className="space-rock space-rock--two" />
         <span className="space-rock space-rock--three" />
         <span className="space-rock space-rock--four" />
+        <span className="space-rock space-rock--five" />
+        <span className="space-rock space-rock--six" />
         <span className="space-spark space-spark--one" />
         <span className="space-spark space-spark--two" />
         <span className="space-spark space-spark--three" />
