@@ -107,21 +107,21 @@ a { color: inherit; }
 .button.outline { border: 1px solid #ffffff50; color: #fff; }
 .hero-location { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 18px; border-top: 1px solid #ffffff20; color: #94a3b8; font-size: .82rem; }
 .hero-location strong { color: #fff; }
-.hero-orbit { position: relative; display: grid; min-height: 440px; place-items: center; animation: orbit-float 7s ease-in-out infinite; }
-.hero-orbit::before,.hero-orbit::after { position: absolute; width: 420px; height: 420px; border: 1px solid #ffffff2b; border-radius: 50%; content: ""; animation: orbit-spin 34s linear infinite; }
-.hero-orbit::after { width: 240px; height: 240px; border-style: dashed; border-color: #a5f3fc40; animation-duration: 24s; animation-direction: reverse; }
+.hero-orbit { position: relative; display: grid; min-height: 560px; place-items: center; animation: orbit-float 7s ease-in-out infinite; }
+.hero-orbit::before,.hero-orbit::after { position: absolute; width: 540px; height: 540px; border: 1px solid #ffffff2b; border-radius: 50%; content: ""; animation: orbit-spin 34s linear infinite; }
+.hero-orbit::after { width: 360px; height: 360px; border-style: dashed; border-color: #a5f3fc40; animation-duration: 24s; animation-direction: reverse; }
 .orbit-card { z-index: 1; display: grid; width: 190px; height: 190px; align-content: center; justify-items: center; border: 1px solid #ffffff45; border-radius: 38px; background: linear-gradient(135deg,#0d5381,#071a2b); box-shadow: 0 30px 90px #0008,0 0 70px #0891b233; }
 .orbit-card strong { font-family: var(--font-display); font-size: 2.3rem; }
 .orbit-card span { margin-top: 10px; color: #cffafe; font-size: .75rem; letter-spacing: .22em; }
 .hero-orbit .orbit-label { position: absolute; top: 50%; left: 50%; z-index: 2; display: grid; place-items: center; margin: 0; border-radius: 50%; font-weight: 750; white-space: nowrap; }
-.orbit-label-one { width: 84px; height: 84px; border: 1px solid #7dd3fc; color: #e0f2fe; background: radial-gradient(circle at 38% 34%,#164e63,#082338 72%); box-shadow: 0 0 20px #38bdf844,inset 0 0 18px #7dd3fc22; font-size: .62rem; letter-spacing: .055em; }
-.orbit-label-one::before { position: absolute; z-index: 0; inset: -11px; border-radius: 50%; background: repeating-conic-gradient(#7dd3fc 0deg 2deg,transparent 2deg 30deg); content: ""; mask: radial-gradient(transparent 0 67%,#000 70% 76%,transparent 79%); }
-.orbit-label-two { width: 68px; height: 68px; border: 1px solid #c4d7e8; color: #f1f7fc; background: #0c2942; box-shadow: 0 0 18px #7dd3fc35,inset 0 0 12px #7dd3fc16; font-size: .72rem; letter-spacing: .06em; }
-.orbit-label-two::before { position: absolute; inset: 9px; border: 2px solid #dbeafe; border-radius: 50%; background: #a7d8f2; box-shadow: 0 0 12px #7dd3fc88; content: ""; }
-.orbit-label-two::after { position: absolute; top: 7px; left: 20px; width: 34px; height: 34px; border-radius: 50%; background: #0c2942; content: ""; }
+.orbit-label-one { width: 84px; height: 84px; border: 1px solid #7dd3fc; color: #e0f2fe; background: radial-gradient(circle at 38% 34%,#bae6fd,#164e63 46%,#082338 76%); box-shadow: 0 0 24px #38bdf866,inset 0 0 18px #7dd3fc44; font-size: .62rem; letter-spacing: .055em; }
+.orbit-label-one::before { position: absolute; z-index: 0; inset: -14px; border-radius: 50%; background: repeating-conic-gradient(#7dd3fc 0deg 3deg,transparent 3deg 30deg); content: ""; mask: radial-gradient(transparent 0 66%,#000 69% 80%,transparent 83%); }
+.orbit-label-two { width: 78px; height: 78px; border: 1px solid #dbeafe; color: #334155; background: #0c2942; box-shadow: 0 0 20px #7dd3fc44,inset 0 0 12px #7dd3fc16; font-size: .72rem; letter-spacing: .06em; }
+.orbit-label-two::before { position: absolute; inset: 4px; border: 1px solid #f1f7fc; border-radius: 50%; background: radial-gradient(circle at 29% 31%,#8da5ba 0 3px,#cbd8e3 4px,transparent 6px),radial-gradient(circle at 68% 26%,#91a7ba 0 2px,#d1dce6 3px,transparent 5px),radial-gradient(circle at 67% 67%,#8da5ba 0 4px,#cbd8e3 5px,transparent 7px),radial-gradient(circle at 36% 72%,#a2b5c5 0 2px,transparent 4px),radial-gradient(circle at 52% 47%,#f8fafc,#b9c9d7 72%); box-shadow: 0 0 12px #7dd3fc88; content: ""; }
+.orbit-label-two::after { display: none; }
 .hero-orbit .orbit-label span { position: relative; z-index: 1; }
-.orbit-label-one { transform: translate(-50%,-50%) rotate(-90deg) translateX(210px) rotate(90deg); animation: orbit-label-outer 34s linear infinite; }
-.orbit-label-two { transform: translate(-50%,-50%) rotate(90deg) translateX(120px) rotate(-90deg); animation: orbit-label-inner 24s linear infinite; }
+.orbit-label-one { transform: translate(-50%,-50%) rotate(-90deg) translateX(270px) rotate(90deg); animation: orbit-label-outer 34s linear infinite; }
+.orbit-label-two { transform: translate(-50%,-50%) rotate(90deg) translateX(180px) rotate(-90deg); animation: orbit-label-inner 24s linear infinite; }
 .site-section { padding: 90px max(24px, calc((100vw - 1200px) / 2)); }
 .site-section h2,.join-section h2 { margin: 14px 0; font-family: var(--font-display); font-size: clamp(2rem,4vw,3.2rem); font-weight: 650; letter-spacing: -.04em; line-height: 1.15; }
 .about-section { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
@@ -212,12 +212,12 @@ a { color: inherit; }
   to { transform: rotate(360deg); }
 }
 @keyframes orbit-label-outer {
-  from { transform: translate(-50%,-50%) rotate(-90deg) translateX(210px) rotate(90deg); }
-  to { transform: translate(-50%,-50%) rotate(270deg) translateX(210px) rotate(-270deg); }
+  from { transform: translate(-50%,-50%) rotate(-90deg) translateX(270px) rotate(90deg); }
+  to { transform: translate(-50%,-50%) rotate(270deg) translateX(270px) rotate(-270deg); }
 }
 @keyframes orbit-label-inner {
-  from { transform: translate(-50%,-50%) rotate(90deg) translateX(120px) rotate(-90deg); }
-  to { transform: translate(-50%,-50%) rotate(-270deg) translateX(120px) rotate(270deg); }
+  from { transform: translate(-50%,-50%) rotate(90deg) translateX(180px) rotate(-90deg); }
+  to { transform: translate(-50%,-50%) rotate(-270deg) translateX(180px) rotate(270deg); }
 }
 @keyframes reveal-rise {
   from { transform: translateY(24px) scale(.985); opacity: 0; }
