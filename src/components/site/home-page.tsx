@@ -176,9 +176,20 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
   return (
     <div className="home-page">
       <div className="space-decorations" aria-hidden="true">
-        <span className="space-meteor space-meteor--one" />
-        <span className="space-meteor space-meteor--two" />
-        <span className="space-meteor space-meteor--three" />
+        <div className="space-meteor-field">
+          {Array.from({ length: 30 }, (_, index) => (
+            <span
+              className="space-meteor"
+              key={index}
+              style={{
+                top: `${(index * 37) % 100}%`,
+                right: `${(index * 23) % 45 - 10}%`,
+                animationDelay: `${-((index * 2.71) % 24)}s`,
+                animationDuration: `${18 + (index % 7) * 2}s`,
+              }}
+            />
+          ))}
+        </div>
         <span className="space-rock space-rock--one" />
         <span className="space-rock space-rock--two" />
         <span className="space-rock space-rock--three" />

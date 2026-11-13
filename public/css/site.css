@@ -14,12 +14,10 @@ a { color: inherit; }
 .home-page { position: relative; isolation: isolate; }
 .space-decorations { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
 .home-page > header,.home-page > main { position: relative; z-index: 1; }
-.space-meteor { position: absolute; top: 8%; right: -8%; width: clamp(190px,28vw,360px); height: 7px; border-radius: 50%; opacity: 0; background: linear-gradient(90deg,transparent 0%,#312e81 36%,#6366f1 59%,#7dd3fc 82%,#fff 100%); box-shadow: 0 0 12px 3px #6366f1a6,0 0 28px 5px #38bdf877; filter: drop-shadow(0 0 5px #bae6fd); transform: rotate(-35deg); animation: space-meteor-fall 5s ease-in infinite; }
-.space-meteor::before { position: absolute; top: 50%; right: -2px; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle,#fff 0 16%,#e0f2fe 28%,#7dd3fc 48%,#38bdf822 72%,transparent 74%); box-shadow: 0 0 12px 5px #7dd3fc,0 0 30px 10px #6366f188; content: ""; transform: translateY(-50%); }
-.space-meteor::after { position: absolute; top: 50%; left: 18%; width: 58%; height: 2px; border-radius: 50%; background: linear-gradient(90deg,transparent,#c4b5fdcc,#fff); box-shadow: 0 -5px 12px -4px #a5b4fc,0 5px 12px -4px #7dd3fc; content: ""; transform: translateY(-50%); }
-.space-meteor--one { animation-delay: 0s; }
-.space-meteor--two { top: 33%; width: clamp(150px,22vw,280px); height: 5px; animation-delay: 1.6s; animation-duration: 5.4s; }
-.space-meteor--three { top: 58%; width: clamp(175px,25vw,320px); height: 6px; animation-delay: 3.2s; animation-duration: 5.8s; }
+.space-meteor-field { position: absolute; inset: 0; overflow: hidden; }
+.space-meteor { position: absolute; width: 60px; height: 1.5px; border-radius: 999px; opacity: 0; background: linear-gradient(90deg,transparent 0%,#818cf8 48%,#bae6fd 86%,#fff 100%); box-shadow: 0 0 5px 1px #6366f177; transform: rotate(135deg); animation: space-meteor-fall 24s linear infinite; }
+.space-meteor::before { position: absolute; top: 50%; right: -1px; width: 4px; height: 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px 2px #bae6fd,0 0 9px 3px #818cf899; content: ""; transform: translateY(-50%); }
+.space-meteor::after { position: absolute; top: 50%; left: 0; width: 48px; height: 1px; border-radius: 999px; background: linear-gradient(90deg,transparent,#818cf8aa,#dbeafe); content: ""; transform: translateY(-50%); }
 .space-rock { position: absolute; width: 36px; height: 32px; border: 1px solid #e2e8f080; border-radius: 42% 58% 55% 45%; background: radial-gradient(ellipse at 32% 28%,#e2e8f0 0 8%,transparent 11%),radial-gradient(ellipse at 68% 63%,#0f172a 0 8%,transparent 11%),radial-gradient(ellipse at 47% 72%,#cbd5e1 0 7%,transparent 10%),linear-gradient(135deg,#cbd5e1,#64748b 48%,#26364c 78%,#0f172a); box-shadow: inset -6px -4px 7px #020617c9,0 0 19px #94a3b866; opacity: .95; animation: space-rock-drift 9s ease-in-out infinite alternate; }
 .space-rock--one { top: 32%; left: 9%; }
 .space-rock--two { top: 67%; right: 12%; width: 27px; height: 24px; animation-delay: -4s; animation-duration: 12s; }
@@ -220,10 +218,9 @@ a { color: inherit; }
   to { transform: translateY(0) scale(1); opacity: 1; }
 }
 @keyframes space-meteor-fall {
-  0% { opacity: 0; transform: translate3d(0,0,0) rotate(-35deg); }
-  12% { opacity: .95; }
-  55% { opacity: .9; transform: translate3d(-72vw,48vh,0) rotate(-35deg); }
-  68%,100% { opacity: 0; transform: translate3d(-100vw,70vh,0) rotate(-35deg); }
+  0% { opacity: 0; transform: translate3d(0,0,0) rotate(135deg); }
+  8%,62% { opacity: .88; }
+  100% { opacity: 0; transform: translate3d(-110vw,110vh,0) rotate(135deg); }
 }
 @keyframes space-rock-drift {
   from { transform: translate3d(0,0,0) rotate(-18deg); }
@@ -277,9 +274,7 @@ a { color: inherit; }
   *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .orbit-label-one { animation-duration: 34s !important; animation-iteration-count: infinite !important; }
   .orbit-label-two { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-meteor { animation-duration: 5s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-meteor--two { animation-duration: 5.4s !important; }
-  .space-decorations .space-meteor--three { animation-duration: 5.8s !important; }
+  .space-decorations .space-meteor { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-astronaut { animation-duration: 18s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-rock--one { animation-duration: 9s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-rock--two { animation-duration: 12s !important; animation-iteration-count: infinite !important; }
