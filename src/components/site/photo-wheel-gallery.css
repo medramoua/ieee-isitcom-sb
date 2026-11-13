@@ -26,8 +26,8 @@
   top: 50%;
   left: 50%;
   display: grid;
-  width: min(900px, 82vw);
-  height: min(680px, 76vh);
+  width: min(800px, 76vw);
+  height: min(600px, 68vh);
   place-items: center;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 16%);
@@ -61,8 +61,8 @@
   }
 
   .photo-wheel__preview {
-    width: 90vw;
-    height: 70vh;
+    width: 84vw;
+    height: 62vh;
     border-radius: 14px;
   }
 }
