@@ -181,7 +181,20 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
         <span className="space-meteor space-meteor--three" />
         <span className="space-rock space-rock--one" />
         <span className="space-rock space-rock--two" />
-        <span className="space-satellite">🛰️</span>
+        <span className="space-rock space-rock--three" />
+        <span className="space-rock space-rock--four" />
+        <span className="space-spark space-spark--one" />
+        <span className="space-spark space-spark--two" />
+        <span className="space-spark space-spark--three" />
+        <span className="space-satellite">
+          <svg viewBox="0 0 120 70" fill="none">
+            <path d="M8 16h31v38H8zM81 16h31v38H81z" fill="#2563eb" fillOpacity=".42" stroke="#93c5fd" strokeWidth="2" />
+            <path d="M18 16v38m11-38v38M91 16v38m11-38v38M8 29h31M8 42h31m42-13h31m-31 13h31" stroke="#bfdbfe" strokeOpacity=".8" />
+            <path d="m43 25 13-9 13 9v22l-13 9-13-9V25Z" fill="#cbd5e1" stroke="#f8fafc" strokeWidth="2" />
+            <path d="M52 27h9v12h-9z" rx="3" fill="#0c4a6e" stroke="#7dd3fc" strokeWidth="2" />
+            <path d="m56 54-4 10m8-10 4 10m-8-35-9-9m17 9 9-9" stroke="#e2e8f0" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </span>
         <svg className="space-astronaut" viewBox="0 0 100 130" fill="none">
           <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#dbeafe" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
           <path d="m38 94-8 23m33-23 8 23" stroke="#dbeafe" strokeWidth="12" strokeLinecap="round" />
