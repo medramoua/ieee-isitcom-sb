@@ -18,13 +18,13 @@ a { color: inherit; }
 .space-meteor { position: absolute; width: 60px; height: 1.5px; border-radius: 999px; opacity: 0; background: linear-gradient(90deg,transparent 0%,#818cf8 48%,#bae6fd 86%,#fff 100%); box-shadow: 0 0 6px 2px #6366f199; transform: rotate(135deg); animation: space-meteor-fall 40s linear infinite; }
 .space-meteor::before { position: absolute; top: 50%; right: -1px; width: 4px; height: 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px 2px #bae6fd,0 0 9px 3px #818cf899; content: ""; transform: translateY(-50%); }
 .space-meteor::after { position: absolute; top: 50%; left: 0; width: 48px; height: 1px; border-radius: 999px; background: linear-gradient(90deg,transparent,#818cf8aa,#dbeafe); content: ""; transform: translateY(-50%); }
-.space-rock { position: absolute; width: 36px; height: 32px; border: 1px solid #e2e8f080; border-radius: 42% 58% 55% 45%; background: radial-gradient(ellipse at 32% 28%,#e2e8f0 0 8%,transparent 11%),radial-gradient(ellipse at 68% 63%,#0f172a 0 8%,transparent 11%),radial-gradient(ellipse at 47% 72%,#cbd5e1 0 7%,transparent 10%),linear-gradient(135deg,#cbd5e1,#64748b 48%,#26364c 78%,#0f172a); box-shadow: inset -6px -4px 7px #020617c9,0 0 16px #94a3b877; opacity: .82; animation: space-rock-drift 16s ease-in-out infinite alternate; }
-.space-rock--one { top: 32%; left: 9%; }
-.space-rock--two { top: 67%; right: 12%; width: 27px; height: 24px; animation-delay: -8s; animation-duration: 20s; }
-.space-rock--three { top: 78%; left: 37%; width: 19px; height: 17px; animation-delay: -5s; animation-duration: 18s; }
-.space-rock--four { top: 18%; left: 57%; width: 15px; height: 13px; animation-delay: -11s; animation-duration: 22s; }
-.space-rock--five { top: 45%; right: 31%; width: 23px; height: 20px; animation-delay: -13s; animation-duration: 19s; }
-.space-rock--six { top: 86%; right: 48%; width: 17px; height: 15px; animation-delay: -7s; animation-duration: 21s; }
+.space-rock { position: absolute; width: 36px; height: 32px; border: 1px solid #e2e8f080; border-radius: 42% 58% 55% 45%; background: radial-gradient(ellipse at 32% 28%,#e2e8f0 0 8%,transparent 11%),radial-gradient(ellipse at 68% 63%,#0f172a 0 8%,transparent 11%),radial-gradient(ellipse at 47% 72%,#cbd5e1 0 7%,transparent 10%),linear-gradient(135deg,#cbd5e1,#64748b 48%,#26364c 78%,#0f172a); box-shadow: inset -6px -4px 7px #020617c9,0 0 16px #94a3b877; opacity: .82; animation: space-rock-drift 10s linear infinite alternate; }
+.space-rock--one { top: 32%; left: 9%; animation-delay: -3s; }
+.space-rock--two { top: 67%; right: 12%; width: 27px; height: 24px; animation-delay: -8s; animation-duration: 12s; }
+.space-rock--three { top: 78%; left: 37%; width: 19px; height: 17px; animation-delay: -5s; animation-duration: 9s; }
+.space-rock--four { top: 18%; left: 57%; width: 15px; height: 13px; animation-delay: -11s; animation-duration: 13s; }
+.space-rock--five { top: 45%; right: 31%; width: 23px; height: 20px; animation-delay: -13s; animation-duration: 11s; }
+.space-rock--six { top: 86%; right: 48%; width: 17px; height: 15px; animation-delay: -7s; animation-duration: 14s; }
 .space-spark { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #e0f2fe; box-shadow: 0 0 6px 2px #7dd3fc77; animation: space-sparkle 6s ease-in-out infinite alternate; }
 .space-spark--one { top: 25%; left: 29%; }
 .space-spark--two { top: 63%; left: 62%; width: 3px; height: 3px; animation-delay: -1s; }
@@ -32,6 +32,8 @@ a { color: inherit; }
 .space-satellite { position: absolute; top: 20%; right: 16%; display: block; width: 112px; height: 66px; opacity: .62; filter: drop-shadow(0 0 8px #7dd3fc77); animation: space-satellite-drift 26s ease-in-out infinite; }
 .space-satellite svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .space-astronaut { position: absolute; top: 34%; left: 74%; width: 78px; height: 102px; opacity: .64; filter: drop-shadow(0 0 10px #7dd3fc88); animation: space-astronaut-fall 28s ease-in-out infinite alternate; }
+.space-astronaut--female { top: 9%; left: 41%; animation-delay: -9s; filter: drop-shadow(0 0 10px #f472b688); }
+.space-robot { top: 46%; left: 88%; animation-delay: -18s; filter: drop-shadow(0 0 10px #7dd3fc88); }
 .site-error { margin: 0; padding: 12px 20px; color: #b91c1c; background: #fef2f2; text-align: center; }
 .site-header {
   position: sticky; top: 12px; z-index: 20; display: flex; width: min(1200px,calc(100% - 48px)); min-height: 68px; align-items: center; justify-content: space-between; gap: 18px;
@@ -247,8 +249,8 @@ a { color: inherit; }
   100% { opacity: 0; transform: translate3d(-110vw,110vh,0) rotate(135deg); }
 }
 @keyframes space-rock-drift {
-  from { transform: translate3d(0,0,0) rotate(-18deg); }
-  to { transform: translate3d(28px,-20px,0) rotate(42deg); }
+  from { transform: translate3d(-34px,24px,0) rotate(-160deg) scale(.86); }
+  to { transform: translate3d(34px,-24px,0) rotate(160deg) scale(1.12); }
 }
 @keyframes space-satellite-drift {
   0%,100% { transform: translate3d(0,0,0) rotate(-6deg); }
@@ -303,12 +305,13 @@ a { color: inherit; }
   .orbit-satellite { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-meteor { animation-duration: 40s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-astronaut { animation-duration: 28s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--one { animation-duration: 16s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--two { animation-duration: 20s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--three { animation-duration: 18s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--four { animation-duration: 22s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--five { animation-duration: 19s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-rock--six { animation-duration: 21s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--one { animation-duration: 10s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--two { animation-duration: 12s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--three { animation-duration: 9s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--four { animation-duration: 13s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--five { animation-duration: 11s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--six { animation-duration: 14s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-satellite { animation-duration: 26s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-spark { animation-duration: 6s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-astronaut--female,.space-decorations .space-robot { animation-duration: 28s !important; animation-iteration-count: infinite !important; }
 }

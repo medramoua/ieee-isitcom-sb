@@ -212,11 +212,42 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#dbeafe" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
           <path d="m38 94-8 23m33-23 8 23" stroke="#dbeafe" strokeWidth="12" strokeLinecap="round" />
           <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
+          <text x="50.5" y="63" textAnchor="middle" fill="#0c4a6e" fontSize="5.5" fontWeight="700">AESS</text>
           <rect x="43" y="69" width="17" height="18" rx="5" fill="#38bdf8" />
           <circle cx="51" cy="23" r="20" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
           <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#0c2942" stroke="#7dd3fc" strokeWidth="2" />
           <path d="m37 43-7 7m35-7 7 7" stroke="#f8fafc" strokeWidth="4" strokeLinecap="round" />
           <rect x="65" y="48" width="8" height="20" rx="3" fill="#0f3451" stroke="#94a3b8" strokeWidth="2" />
+        </svg>
+        <svg className="space-astronaut space-astronaut--female" viewBox="0 0 100 130" fill="none">
+          <path d="M27 57 12 74l9 8 17-14m35-11 15 17-9 8-17-14" stroke="#fce7f3" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="m39 94-8 23m30-23 8 23" stroke="#fce7f3" strokeWidth="12" strokeLinecap="round" />
+          <path d="M34 48c0-10 7-18 16-18s16 8 16 18v41H34V48Z" fill="#fdf2f8" stroke="#f472b6" strokeWidth="3" />
+          <rect x="39" y="53" width="23" height="8" rx="3" fill="#fbcfe8" />
+          <text x="50.5" y="59" textAnchor="middle" fill="#db2777" fontSize="5.5" fontWeight="700">WEE</text>
+          <rect x="43" y="70" width="17" height="17" rx="5" fill="#f9a8d4" />
+          <circle cx="51" cy="23" r="20" fill="#fdf2f8" stroke="#f472b6" strokeWidth="3" />
+          <path d="M34 25c-2-15 6-24 18-24 10 0 17 7 17 18-5-3-8-7-10-12-5 8-13 12-25 13Z" fill="#7c2d5a" />
+          <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#3b2540" stroke="#f9a8d4" strokeWidth="2" />
+          <path d="m36 43-7 7m36-7 7 7" stroke="#fff1f7" strokeWidth="4" strokeLinecap="round" />
+          <path d="M68 13c12 0 13 10 8 15" stroke="#7c2d5a" strokeWidth="5" strokeLinecap="round" />
+          <rect x="65" y="49" width="8" height="19" rx="3" fill="#831843" stroke="#f9a8d4" strokeWidth="2" />
+        </svg>
+        <svg className="space-astronaut space-robot" viewBox="0 0 100 130" fill="none">
+          <path d="M50 14V6m-5 0a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" stroke="#cbd5e1" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="25" y="17" width="50" height="37" rx="9" fill="#f8fafc" stroke="#64748b" strokeWidth="4" />
+          <path d="M20 30c-7 2-7 10 0 12m60-12c7 2 7 10 0 12" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="39" cy="33" r="3" fill="#334155" />
+          <circle cx="61" cy="33" r="3" fill="#334155" />
+          <path d="M45 42h10" stroke="#334155" strokeWidth="3" strokeLinecap="round" />
+          <rect x="25" y="60" width="50" height="42" rx="8" fill="#f8fafc" stroke="#64748b" strokeWidth="4" />
+          <path d="M30 63h40v17c-9 12-23 18-40 19V63Z" fill="#e2e8f0" />
+          <text x="50" y="94" textAnchor="middle" fill="#334155" fontSize="8" fontWeight="700">RAS</text>
+          <path d="m25 67-7 7v17m57-24 7 7v17M39 102v14m22-14v14m-8-1h-9m31 0h-9" stroke="#94a3b8" strokeWidth="5" strokeLinecap="round" />
+          <circle cx="18" cy="73" r="5" fill="#f8fafc" stroke="#64748b" strokeWidth="3" />
+          <circle cx="82" cy="73" r="5" fill="#f8fafc" stroke="#64748b" strokeWidth="3" />
+          <path d="M17 91v6m66-6v6" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
+          <path d="M35 120h9v4H31m34-4h-9v4h13" stroke="#64748b" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
       <p id="site-error" className="site-error" role="alert" hidden />
