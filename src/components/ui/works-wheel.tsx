@@ -15,8 +15,6 @@ export interface WorksWheelProps extends Omit<
   "children"
 > {
   items: WorksWheelItem[];
-  onItemHover?: (item: WorksWheelItem, index: number) => void;
-  onItemLeave?: (index: number) => void;
   autoPlay?: boolean;
   label?: string;
 }
@@ -35,8 +33,6 @@ type Stage = { width: number; height: number };
 
 export function WorksWheel({
   items,
-  onItemHover,
-  onItemLeave,
   autoPlay = false,
   label = "Photo gallery",
   className,
@@ -221,27 +217,23 @@ export function WorksWheel({
             onPointerEnter: (event: React.PointerEvent<HTMLElement>) => {
               if (event.pointerType !== "touch") {
                 hoveredCard.current = index;
-                onItemHover?.(item, index);
                 wakeRef.current();
               }
             },
             onPointerLeave: () => {
               if (hoveredCard.current === index) {
                 hoveredCard.current = null;
-                onItemLeave?.(index);
                 wakeRef.current();
               }
             },
             onFocus: (event: React.FocusEvent<HTMLElement>) => {
               if (!event.currentTarget.matches(":focus-visible")) return;
               hoveredCard.current = index;
-              onItemHover?.(item, index);
               wakeRef.current();
             },
             onBlur: () => {
               if (hoveredCard.current === index) {
                 hoveredCard.current = null;
-                onItemLeave?.(index);
                 wakeRef.current();
               }
             },
@@ -271,7 +263,7 @@ export function WorksWheel({
               {...commonProps}
               key={`${index}-${item.image}`}
               type="button"
-              className={`${commonProps.className} cursor-zoom-in`}
+              className={`${commonProps.className} cursor-pointer`}
             >
               {image}
             </button>
