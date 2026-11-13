@@ -225,8 +225,10 @@ a { color: inherit; }
   50% { transform: translate3d(-44px,28px,0) rotate(14deg); }
 }
 @keyframes space-astronaut-fall {
-  from { transform: translate3d(0,-18px,0) rotate(-22deg); }
-  to { transform: translate3d(-42px,48px,0) rotate(28deg); }
+  0% { opacity: 0; transform: translate3d(0,-24vh,0) rotate(0deg); }
+  8% { opacity: .95; }
+  88% { opacity: .95; }
+  100% { opacity: 0; transform: translate3d(-28vw,115vh,0) rotate(720deg); }
 }
 @media(max-width:800px) {
   .site-header { flex-wrap: wrap; gap: 10px; border-radius: 24px; }
@@ -262,7 +264,11 @@ a { color: inherit; }
   *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .orbit-label-one { animation-duration: 34s !important; animation-iteration-count: infinite !important; }
   .orbit-label-two { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
-  .space-decorations .space-meteor { opacity: .85; transform: rotate(-35deg); }
-  .space-decorations .space-astronaut { opacity: .95; transform: rotate(-12deg); }
-  .space-decorations .space-rock,.space-decorations .space-satellite { animation: none !important; }
+  .space-decorations .space-meteor { animation-duration: 5s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-meteor--two { animation-duration: 5.4s !important; }
+  .space-decorations .space-meteor--three { animation-duration: 5.8s !important; }
+  .space-decorations .space-astronaut { animation-duration: 18s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--one { animation-duration: 9s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-rock--two { animation-duration: 12s !important; animation-iteration-count: infinite !important; }
+  .space-decorations .space-satellite { animation-duration: 8s !important; animation-iteration-count: infinite !important; }
 }
