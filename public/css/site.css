@@ -201,6 +201,9 @@ a { color: inherit; }
 .button.light { position: relative; overflow: hidden; }
 .button.light::after { position: absolute; inset: -30% auto -30% -55%; width: 35%; transform: skewX(-18deg); background: linear-gradient(90deg,transparent,#ffffffa8,transparent); content: ""; transition: left .55s ease; }
 .button.light:hover::after,.button.light:focus-visible::after { left: 125%; }
+.hero-actions .button { transition: transform .2s ease,box-shadow .2s ease,border-color .2s ease,background-color .2s ease; }
+.hero-actions .button:hover,.hero-actions .button:focus-visible { transform: translateY(-2px); outline: none; box-shadow: 0 0 0 1px #7dd3fc88,0 0 20px #38bdf877,0 0 42px #38bdf833; }
+.hero-actions .button.outline:hover,.hero-actions .button.outline:focus-visible { border-color: #a5f3fc; background-color: #38bdf81a; }
 @keyframes hero-glow-drift {
   0% { background-position: 0% 20%,100% 80%,30% 100%; }
   100% { background-position: 100% 80%,0% 15%,90% 0%; }
