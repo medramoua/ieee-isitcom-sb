@@ -175,6 +175,24 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
 
   return (
     <div className="home-page">
+      <div className="space-decorations" aria-hidden="true">
+        <span className="space-meteor space-meteor--one" />
+        <span className="space-meteor space-meteor--two" />
+        <span className="space-meteor space-meteor--three" />
+        <span className="space-rock space-rock--one" />
+        <span className="space-rock space-rock--two" />
+        <span className="space-satellite">🛰️</span>
+        <svg className="space-astronaut" viewBox="0 0 100 130" fill="none">
+          <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#dbeafe" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="m38 94-8 23m33-23 8 23" stroke="#dbeafe" strokeWidth="12" strokeLinecap="round" />
+          <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
+          <rect x="43" y="69" width="17" height="18" rx="5" fill="#38bdf8" />
+          <circle cx="51" cy="23" r="20" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
+          <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#0c2942" stroke="#7dd3fc" strokeWidth="2" />
+          <path d="m37 43-7 7m35-7 7 7" stroke="#f8fafc" strokeWidth="4" strokeLinecap="round" />
+          <rect x="65" y="48" width="8" height="20" rx="3" fill="#0f3451" stroke="#94a3b8" strokeWidth="2" />
+        </svg>
+      </div>
       <p id="site-error" className="site-error" role="alert" hidden />
       <header className="site-header">
         <a className="site-brand" href={`/?locale=${locale}`} aria-label="IEEE ISITCom">
@@ -238,24 +256,6 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
       <main>
         <section className="home-hero">
           <div className="hero-pointer-glow" aria-hidden="true" />
-          <div className="space-decorations" aria-hidden="true">
-            <span className="space-meteor space-meteor--one" />
-            <span className="space-meteor space-meteor--two" />
-            <span className="space-meteor space-meteor--three" />
-            <span className="space-rock space-rock--one" />
-            <span className="space-rock space-rock--two" />
-            <span className="space-satellite">🛰️</span>
-            <svg className="space-astronaut" viewBox="0 0 100 130" fill="none">
-              <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#dbeafe" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="m38 94-8 23m33-23 8 23" stroke="#dbeafe" strokeWidth="12" strokeLinecap="round" />
-              <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
-              <rect x="43" y="69" width="17" height="18" rx="5" fill="#38bdf8" />
-              <circle cx="51" cy="23" r="20" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
-              <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#0c2942" stroke="#7dd3fc" strokeWidth="2" />
-              <path d="m37 43-7 7m35-7 7 7" stroke="#f8fafc" strokeWidth="4" strokeLinecap="round" />
-              <rect x="65" y="48" width="8" height="20" rx="3" fill="#0f3451" stroke="#94a3b8" strokeWidth="2" />
-            </svg>
-          </div>
           <div className="hero-copy">
             <p className="eyebrow">{home.eyebrow}</p>
             <h1>
