@@ -314,8 +314,8 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           </div>
           <div className="hero-orbit" aria-hidden="true">
             <div className="orbit-card"><strong>IEEE</strong><span>ISITCom</span></div>
-            <p className="orbit-label orbit-label-one">ISITCOM</p>
-            <p className="orbit-label orbit-label-two">SB</p>
+            <p className="orbit-label orbit-label-one"><span>ISITCOM</span></p>
+            <p className="orbit-label orbit-label-two"><span>SB</span></p>
           </div>
         </section>
 
