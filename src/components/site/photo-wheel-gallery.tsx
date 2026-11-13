@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 import "./photo-wheel-gallery.css";
 
-const PREVIEW_EXIT_MS = 220;
+const PREVIEW_EXIT_MS = 190;
 
 interface Photo {
   id: string;
@@ -31,6 +31,7 @@ export default function PhotoWheelGallery({
 }: PhotoWheelGalleryProps) {
   const [preview, setPreview] = useState<PreviewState | null>(null);
   const previewExitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const previewEntryFrame = useRef<number | null>(null);
 
   const items = useMemo<WorksWheelItem[]>(
     () => photos.map((photo, index) => ({
@@ -42,14 +43,24 @@ export default function PhotoWheelGallery({
 
   useEffect(() => () => {
     if (previewExitTimer.current) clearTimeout(previewExitTimer.current);
+    if (previewEntryFrame.current !== null) cancelAnimationFrame(previewEntryFrame.current);
   }, []);
 
   const showPreview = (_item: WorksWheelItem, index: number) => {
     if (previewExitTimer.current) clearTimeout(previewExitTimer.current);
-    setPreview({ index, visible: true });
+    if (previewEntryFrame.current !== null) cancelAnimationFrame(previewEntryFrame.current);
+    setPreview({ index, visible: false });
+    previewEntryFrame.current = requestAnimationFrame(() => {
+      setPreview((current) => current?.index === index ? { ...current, visible: true } : current);
+      previewEntryFrame.current = null;
+    });
   };
 
   const hidePreview = (index: number) => {
+    if (previewEntryFrame.current !== null) {
+      cancelAnimationFrame(previewEntryFrame.current);
+      previewEntryFrame.current = null;
+    }
     setPreview((current) => current?.index === index
       ? { ...current, visible: false }
       : current);
@@ -89,6 +100,7 @@ export default function PhotoWheelGallery({
             src={photos[preview.index].url}
             alt=""
             draggable={false}
+            onContextMenu={(event) => event.preventDefault()}
           />
         </div>,
         document.body,
