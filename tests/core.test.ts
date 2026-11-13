@@ -6,6 +6,8 @@ import {
   emailSchema,
   loginSchema,
   createAdminSchema,
+  adminUserIdSchema,
+  adminUserStatusSchema,
   resetPasswordSchema,
 } from "../src/features/auth/validators";
 import {
@@ -79,6 +81,17 @@ test("admin creation validates and normalizes account details", () => {
   assert.equal(createAdminSchema.safeParse({
     name: "Admin", email: "admin@example.com", password: "SecurePassword123", confirm: "DifferentPassword456",
   }).success, false);
+});
+
+test("admin management inputs require a valid target and explicit active state", () => {
+  assert.deepEqual(adminUserStatusSchema.parse({ id: "user-123", isActive: false }), {
+    id: "user-123",
+    isActive: false,
+  });
+  assert.equal(adminUserStatusSchema.safeParse({ id: "user-123", isActive: "false" }).success, false);
+  assert.equal(adminUserStatusSchema.safeParse({ id: "", isActive: true }).success, false);
+  assert.equal(adminUserIdSchema.safeParse("user-123").success, true);
+  assert.equal(adminUserIdSchema.safeParse("").success, false);
 });
 
 test("role permissions grant only the intended actions", () => {

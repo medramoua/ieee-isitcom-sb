@@ -39,7 +39,7 @@
 | Site settings | ❌ | ✅ | ✅ |
 | Users & roles, audit log | ❌ | ❌ | ✅ |
 
-Super Admins create Admin accounts through `/admin/users`. The server always assigns the `ADMIN` role, hashes a temporary password supplied by the Super Admin, marks the account to require a password change at first sign-in, and audits creation. The endpoint independently enforces the `users:manage` permission.
+Super Admins manage Admin accounts through `/admin/users`. The server always assigns the `ADMIN` role, hashes a temporary password supplied by the Super Admin, marks the account to require a password change at first sign-in, and audits account creation, deactivation/reactivation, and deletion. Deactivation prevents sign-in and invalidates active sessions. Management endpoints independently enforce the `users:manage` permission, and Super Admins cannot deactivate or delete their own account.
 
 ## 3. Planned folder structure
 

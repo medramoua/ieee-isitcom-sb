@@ -28,6 +28,13 @@ export const createAdminSchema = z.object({
   message: "Les mots de passe ne correspondent pas.",
 });
 
+export const adminUserStatusSchema = z.object({
+  id: z.string().min(1).max(64),
+  isActive: z.boolean(),
+});
+
+export const adminUserIdSchema = z.string().min(1).max(64);
+
 export const resetPasswordSchema = z
   .object({
     token: z.string().min(20).max(200),

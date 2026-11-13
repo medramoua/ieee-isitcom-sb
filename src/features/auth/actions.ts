@@ -23,7 +23,8 @@ export async function requestPasswordReset(input: unknown): Promise<Result> {
   const parsed = forgotPasswordSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: firstIssue(parsed.error) };
 
-  const ip = getClientIp(headers());
+  const requestHeaders = await headers();
+  const ip = getClientIp(requestHeaders);
   const rl = await rateLimit(`reset:ip:${hashIp(ip)}`, 5, 60 * 60);
   if (!rl.ok) return { ok: false, error: "Trop de demandes. Réessayez dans une heure." };
 
@@ -50,7 +51,8 @@ export async function resetPassword(input: unknown): Promise<Result> {
   const parsed = resetPasswordSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: firstIssue(parsed.error) };
 
-  const ip = getClientIp(headers());
+  const requestHeaders = await headers();
+  const ip = getClientIp(requestHeaders);
   const rl = await rateLimit(`resetconfirm:ip:${hashIp(ip)}`, 10, 60 * 60);
   if (!rl.ok) return { ok: false, error: "Trop de tentatives. Réessayez plus tard." };
 

@@ -25,7 +25,7 @@ export async function audit(input: AuditInput): Promise<void> {
     let { ip, userAgent } = input;
     if (!ip || !userAgent) {
       try {
-        const h = headers();
+        const h = await headers();
         ip ??= getClientIp(h);
         userAgent ??= h.get("user-agent") ?? undefined;
       } catch {

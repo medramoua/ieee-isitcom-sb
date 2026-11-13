@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BadgeCheck, BookOpen, Bot, CalendarDays, Newspaper, Rocket, Trophy } from "lucide-react";
+import { BadgeCheck, BookOpen, Bot, CalendarDays, ChevronDown, Newspaper, Rocket, Trophy } from "lucide-react";
 import HoverRevealCards, { type CardItem } from "@/components/ui/cards";
 import { TextReveal } from "@/components/ui/text-reveal";
 import PhotoWheelGallery from "@/components/site/photo-wheel-gallery";
@@ -61,7 +61,11 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
     if (description) description.content = messages.meta.description;
 
     const links = [...document.querySelectorAll<HTMLAnchorElement>(".main-tabs a")];
-    const sections = links.map((link) => document.querySelector(link.hash)).filter((section): section is Element => Boolean(section));
+    const sections = links.flatMap((link) => {
+      if (!link.hash || link.hash === "#") return [];
+      const section = document.querySelector(link.hash);
+      return section ? [section] : [];
+    });
     let observer: IntersectionObserver | undefined;
     if ("IntersectionObserver" in window && sections.length) {
       const sectionObserver = new IntersectionObserver((entries) => {
@@ -178,9 +182,38 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <span><strong>ISITCom</strong><small>{home.brandSubline}</small></span>
         </a>
         <nav className="main-tabs" aria-label={home.navigation}>
-          <a href="#explore">{home.navExplore}</a>
+          <details className="explore-nav-menu">
+            <summary>
+              {home.navExplore}
+              <ChevronDown className="explore-nav-chevron" size={15} aria-hidden="true" />
+            </summary>
+            <ul className="explore-menu-panel">
+              {exploreItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.id}>
+                    <a className="explore-menu-link" href={item.href}>
+                      {Icon && <Icon className="explore-menu-icon" size={19} aria-hidden="true" />}
+                      <span>
+                        <strong>{item.title}</strong>
+                        {item.description && <span>{item.description}</span>}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
           <a href="#gallery">{home.navGallery || nav.gallery}</a>
           <a href="#team">{nav.team}</a>
+          <a
+            className="join-nav-link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfwVr8wN9HID2Hp76hOteeJV0S9RIxNyTA09uc9tFSAQgW9rg/viewform"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {nav.join}
+          </a>
         </nav>
         <div className="header-actions" aria-label={home.chooseLanguage}>
           <a href="/?locale=fr" lang="fr" aria-current={locale === "fr" ? "page" : undefined}>FR</a>
@@ -218,7 +251,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
             <p className="hero-description">{home.heroDescription}</p>
             <div className="hero-actions">
               <a className="button light" href="#join">{nav.join}</a>
-              <a className="button outline" href="#explore">{home.discover}</a>
+              <a className="button outline" href="#about">{home.discover}</a>
             </div>
             <p className="hero-location"><strong>IEEE</strong><span>{home.networkLabel}</span><span>{home.location}</span></p>
           </div>
@@ -227,15 +260,6 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
             <p className="orbit-label orbit-label-one">ISITCOM</p>
             <p className="orbit-label orbit-label-two">SB</p>
           </div>
-        </section>
-
-        <section className="site-section explore-section" id="explore">
-          <div className="section-intro">
-            <p className="section-eyebrow">{home.exploreEyebrow}</p>
-            <h2>{home.exploreTitle}</h2>
-            <p>{home.exploreDescription}</p>
-          </div>
-          <HoverRevealCards items={exploreItems} className="explore-card-grid" />
         </section>
 
         <section className="site-section about-section" id="about">

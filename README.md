@@ -23,7 +23,7 @@ npm run dev
 - Admin sessions expire after 30 minutes and are cleared when you leave the admin area for the public site. You can also sign out from the admin header.
 - Content admin: `/admin/content/events`, `/admin/content/news`, and `/admin/content/projects`.
 - Homepage administration (admins): `/admin/site` for gallery photos, team members, and sponsors.
-- Super Admins can create Admin accounts at `/admin/users` and set a temporary password. The new Admin must change it at first sign-in.
+- Super Admins can create Admin accounts at `/admin/users` and set a temporary password. The new Admin must change it at first sign-in. They can also deactivate/reactivate accounts or permanently delete them; deactivation blocks sign-in and invalidates active sessions.
 - Password-reset emails are also printed in the terminal while `RESEND_API_KEY` is empty.
 
 If you have already configured `.env` and applied the migration, start directly with `npm run dev`. The local `.env` file contains secrets and must not be shared or committed.

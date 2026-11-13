@@ -66,6 +66,22 @@
     "Dernière connexion": "Last sign-in",
     "Jamais": "Never",
     "Aucun administrateur pour le moment.": "No administrators yet.",
+    "Actions": "Actions",
+    "Désactiver": "Deactivate",
+    "Réactiver": "Reactivate",
+    "Supprimer": "Delete",
+    "Confirmer la désactivation de ce compte ?": "Confirm deactivating this account?",
+    "Confirmer la réactivation de ce compte ?": "Confirm reactivating this account?",
+    "Cette suppression est définitive. Supprimer ce compte administrateur ?": "This deletion is permanent. Delete this admin account?",
+    "Compte administrateur désactivé.": "Admin account deactivated.",
+    "Compte administrateur réactivé.": "Admin account reactivated.",
+    "Compte administrateur supprimé.": "Admin account deleted.",
+    "Vous ne pouvez pas désactiver votre propre compte.": "You cannot deactivate your own account.",
+    "Vous ne pouvez pas supprimer votre propre compte.": "You cannot delete your own account.",
+    "Administrateur introuvable.": "Administrator not found.",
+    "Identifiant invalide.": "Invalid account ID.",
+    "Données invalides.": "Invalid data.",
+    "Requête non autorisée.": "Unauthorized request.",
     "Adresse email déjà utilisée.": "That email address is already in use.",
     "Un compte existe déjà avec cette adresse email.": "An account already exists with this email address.",
     "L’envoi des emails n’est pas configuré.": "Email delivery is not configured.",
@@ -239,9 +255,37 @@
       ? new Intl.DateTimeFormat(locale === "fr" ? "fr-TN" : "en", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value))
       : "Jamais";
     const rows = data.users.length
-      ? data.users.map((user) => `<tr><td>${escapeHtml(user.name)}</td><td>${escapeHtml(user.email)}</td><td>${user.isActive ? "Actif" : "Inactif"}</td><td>${escapeHtml(date(user.createdAt))}</td><td>${escapeHtml(date(user.lastLoginAt))}</td></tr>`).join("")
-      : '<tr><td colspan="5" class="empty-row">Aucun administrateur pour le moment.</td></tr>';
-    document.getElementById("panel-content").innerHTML = `<div class="page-heading"><div><p class="page-kicker">Gestion des administrateurs</p><h1>Administrateurs</h1></div></div><section class="panel-card"><h2>Créer un administrateur</h2><p class="field-hint">Créez le compte Admin et choisissez un mot de passe temporaire. L’administrateur devra le changer à sa première connexion.</p><form id="admin-user-form" class="content-form"><div class="form-grid">${formField("name", "Nom complet", "text", "", 'required maxlength="120" autocomplete="name"')}${formField("email", "Email", "email", "", 'required maxlength="254" autocomplete="email"')}${formField("password", "Mot de passe temporaire", "password", "", 'required minlength="12" maxlength="128" autocomplete="new-password"')}<p class="field-hint">12 caractères minimum, avec au moins une lettre et un chiffre.</p>${formField("confirm", "Confirmer le mot de passe", "password", "", 'required minlength="12" maxlength="128" autocomplete="new-password"')}</div><p id="form-error" class="form-error" role="alert" hidden></p><button id="create-admin" class="button" type="submit">Créer le compte</button></form></section><section class="panel-card table-wrap"><h2>Administrateurs existants</h2><table><thead><tr><th>Nom</th><th>Email</th><th>État</th><th>Créé le</th><th>Dernière connexion</th></tr></thead><tbody>${rows}</tbody></table></section>`;
+      ? data.users.map((user) => `<tr><td>${escapeHtml(user.name)}</td><td>${escapeHtml(user.email)}</td><td>${user.isActive ? "Actif" : "Inactif"}</td><td>${escapeHtml(date(user.createdAt))}</td><td>${escapeHtml(date(user.lastLoginAt))}</td><td><div class="form-actions"><button class="button secondary" type="button" data-admin-user-action="toggle" data-user-id="${escapeHtml(user.id)}" data-active="${user.isActive}">${user.isActive ? "Désactiver" : "Réactiver"}</button><button class="button danger" type="button" data-admin-user-action="delete" data-user-id="${escapeHtml(user.id)}">Supprimer</button></div></td></tr>`).join("")
+      : '<tr><td colspan="6" class="empty-row">Aucun administrateur pour le moment.</td></tr>';
+    document.getElementById("panel-content").innerHTML = `<div class="page-heading"><div><p class="page-kicker">Gestion des administrateurs</p><h1>Administrateurs</h1></div></div><section class="panel-card"><h2>Créer un administrateur</h2><p class="field-hint">Créez le compte Admin et choisissez un mot de passe temporaire. L’administrateur devra le changer à sa première connexion.</p><form id="admin-user-form" class="content-form"><div class="form-grid">${formField("name", "Nom complet", "text", "", 'required maxlength="120" autocomplete="name"')}${formField("email", "Email", "email", "", 'required maxlength="254" autocomplete="email"')}${formField("password", "Mot de passe temporaire", "password", "", 'required minlength="12" maxlength="128" autocomplete="new-password"')}<p class="field-hint">12 caractères minimum, avec au moins une lettre et un chiffre.</p>${formField("confirm", "Confirmer le mot de passe", "password", "", 'required minlength="12" maxlength="128" autocomplete="new-password"')}</div><p id="form-error" class="form-error" role="alert" hidden></p><button id="create-admin" class="button" type="submit">Créer le compte</button></form></section><section class="panel-card table-wrap"><h2>Administrateurs existants</h2><table><thead><tr><th>Nom</th><th>Email</th><th>État</th><th>Créé le</th><th>Dernière connexion</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></section>`;
+    document.getElementById("panel-content").querySelectorAll("[data-admin-user-action]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const action = button.dataset.adminUserAction;
+        const isActive = button.dataset.active === "true";
+        const confirmation = action === "delete"
+          ? "Cette suppression est définitive. Supprimer ce compte administrateur ?"
+          : isActive ? "Confirmer la désactivation de ce compte ?" : "Confirmer la réactivation de ce compte ?";
+        if (!confirm(localizeText(confirmation))) return;
+        button.disabled = true;
+        try {
+          if (action === "delete") {
+            await api(`/api/admin/users?id=${encodeURIComponent(button.dataset.userId)}`, { method: "DELETE" });
+            showToast(localizeText("Compte administrateur supprimé."));
+          } else {
+            await api("/api/admin/users", {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id: button.dataset.userId, isActive: !isActive }),
+            });
+            showToast(localizeText(isActive ? "Compte administrateur désactivé." : "Compte administrateur réactivé."));
+          }
+          await renderUsersManager();
+        } catch (error) {
+          showToast(localizeText(error.message || "Une erreur est survenue."), true);
+          button.disabled = false;
+        }
+      });
+    });
     document.getElementById("admin-user-form").addEventListener("submit", async (event) => {
       event.preventDefault();
       const form = event.currentTarget;
