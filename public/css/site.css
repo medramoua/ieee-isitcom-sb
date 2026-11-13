@@ -122,6 +122,8 @@ a { color: inherit; }
 .hero-orbit .orbit-label span { position: relative; z-index: 1; }
 .orbit-label-one { transform: translate(-50%,-50%) rotate(-90deg) translateX(270px) rotate(90deg); animation: orbit-label-outer 34s linear infinite; }
 .orbit-label-two { transform: translate(-50%,-50%) rotate(90deg) translateX(180px) rotate(-90deg); animation: orbit-label-inner 24s linear infinite; }
+.orbit-satellite-track { position: absolute; top: 50%; left: 50%; width: 480px; height: 480px; border: 1px dashed #7dd3fc20; border-radius: 50%; transform: translate(-50%,-50%); }
+.orbit-satellite { position: absolute; top: 50%; left: 50%; z-index: 3; width: 42px; height: 28px; overflow: visible; filter: drop-shadow(0 0 7px #38bdf888); transform: translate(-50%,-50%) rotate(-90deg) translateX(240px) rotate(90deg); animation: orbit-satellite-reverse 30s linear infinite; }
 .site-section { padding: 90px max(24px, calc((100vw - 1200px) / 2)); }
 .site-section h2,.join-section h2 { margin: 14px 0; font-family: var(--font-display); font-size: clamp(2rem,4vw,3.2rem); font-weight: 650; letter-spacing: -.04em; line-height: 1.15; }
 .about-section { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
@@ -219,6 +221,10 @@ a { color: inherit; }
   from { transform: translate(-50%,-50%) rotate(90deg) translateX(180px) rotate(-90deg); }
   to { transform: translate(-50%,-50%) rotate(-270deg) translateX(180px) rotate(270deg); }
 }
+@keyframes orbit-satellite-reverse {
+  from { transform: translate(-50%,-50%) rotate(-90deg) translateX(240px) rotate(90deg); }
+  to { transform: translate(-50%,-50%) rotate(-450deg) translateX(240px) rotate(450deg); }
+}
 @keyframes reveal-rise {
   from { transform: translateY(24px) scale(.985); opacity: 0; }
   to { transform: translateY(0) scale(1); opacity: 1; }
@@ -280,6 +286,7 @@ a { color: inherit; }
   *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .orbit-label-one { animation-duration: 34s !important; animation-iteration-count: infinite !important; }
   .orbit-label-two { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
+  .orbit-satellite { animation-duration: 30s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-meteor { animation-duration: 24s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-astronaut { animation-duration: 18s !important; animation-iteration-count: infinite !important; }
   .space-decorations .space-rock--one { animation-duration: 9s !important; animation-iteration-count: infinite !important; }

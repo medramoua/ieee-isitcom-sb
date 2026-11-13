@@ -316,6 +316,13 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
             <div className="orbit-card"><strong>IEEE</strong><span>ISITCom</span></div>
             <p className="orbit-label orbit-label-one"><span>ISITCOM</span></p>
             <p className="orbit-label orbit-label-two"><span>SB</span></p>
+            <div className="orbit-satellite-track" />
+            <svg className="orbit-satellite" viewBox="0 0 48 32" focusable="false">
+              <rect x="17" y="10" width="14" height="12" rx="3" fill="#e0f2fe" stroke="#38bdf8" strokeWidth="1.5" />
+              <path d="M17 13H5v6h12M31 13h12v6H31" fill="#0e7490" stroke="#7dd3fc" strokeWidth="1.5" />
+              <path d="M24 10V5m-3 0h6M24 22v5" fill="none" stroke="#e0f2fe" strokeLinecap="round" strokeWidth="1.5" />
+              <circle cx="24" cy="16" r="2" fill="#38bdf8" />
+            </svg>
           </div>
         </section>
 
