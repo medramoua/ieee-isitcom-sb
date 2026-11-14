@@ -13,7 +13,8 @@ body { margin: 0; min-width: 320px; }
 a { color: inherit; }
 .home-page { position: relative; isolation: isolate; }
 .space-decorations { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
-.home-page > header,.home-page > main { position: relative; z-index: 1; }
+.home-page > header { position: relative; z-index: 20; }
+.home-page > main { position: relative; z-index: 1; }
 .space-meteor-field { position: absolute; inset: 0; overflow: hidden; }
 .space-meteor { position: absolute; width: 60px; height: 1.5px; border-radius: 999px; opacity: 0; background: linear-gradient(90deg,transparent 0%,#818cf8 48%,#bae6fd 86%,#fff 100%); box-shadow: 0 0 6px 2px #6366f199; transform: rotate(135deg); animation: space-meteor-fall 40s linear infinite; }
 .space-meteor::before { position: absolute; top: 50%; right: -1px; width: 4px; height: 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px 2px #bae6fd,0 0 9px 3px #818cf899; content: ""; transform: translateY(-50%); }
