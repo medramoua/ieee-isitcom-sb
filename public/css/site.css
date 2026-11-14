@@ -11,7 +11,7 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; }
 a { color: inherit; }
-.home-page { position: relative; isolation: isolate; color: #fff; background: #050816; }
+.home-page { position: relative; z-index: 1; isolation: isolate; color: #fff; background: transparent; }
 .home-page > main { position: relative; z-index: 1; color: #fff; background: transparent; }
 .space-decorations { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
 .home-page > header { position: relative; z-index: 20; }
