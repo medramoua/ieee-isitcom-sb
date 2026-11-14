@@ -185,6 +185,13 @@ a { color: inherit; }
 .activities-list { margin-top: 28px; border-top: 1px solid #e2e8f0; }
 .activity-row { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: center; padding: 24px 8px; border-bottom: 1px solid #e2e8f0; }
 .activity-row h3 { margin: 0; font-size: 1rem; }
+.activities-section .activities-head { flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.activities-section .activities-head > p { max-width: 650px; margin: 0; }
+.activities-section .activities-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin-top: 42px; border: 0; }
+.activities-section .activity-row { position: relative; display: flex; min-height: 190px; flex-direction: column; justify-content: center; gap: 12px; padding: 30px 24px; overflow: hidden; border: 1px solid #e2e8f0; border-radius: 20px; background: linear-gradient(145deg,#fff,#f8fafc); box-shadow: 0 12px 30px #0f172a0a; text-align: center; }
+.activities-section .activity-row::before { position: absolute; top: 0; left: 50%; width: 52px; height: 3px; border-radius: 0 0 999px 999px; background: linear-gradient(90deg,#38bdf8,#a78bfa); content: ""; transform: translateX(-50%); }
+.activities-section .activity-row h3 { font-size: 1.12rem; letter-spacing: -.015em; }
+.activities-section .activity-row p { max-width: 340px; margin-inline: auto; }
 .news-section { background: #f8fafc; }
 .news-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin-top: 30px; }
 .news-card { overflow: hidden; border: 1px solid #e2e8f0; border-radius: 16px; background: #fff; box-shadow: 0 4px 14px #0f172a0a; }
@@ -280,6 +287,7 @@ a { color: inherit; }
   .about-section { grid-template-columns: 1fr; gap: 20px; }
   .focus-grid { grid-template-columns: 1fr; }
   .team-grid,.sponsors-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .activities-section .activities-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .news-grid { grid-template-columns: 1fr; }
   .resource-grid { grid-template-columns: 1fr; }
   .activities-head,.join-section,.site-footer { align-items: flex-start; flex-direction: column; }
@@ -297,6 +305,7 @@ a { color: inherit; }
   .home-hero,.site-section { padding-inline: 20px; }
   .home-hero h1 { font-size: 3rem; }
   .team-grid,.sponsors-grid { grid-template-columns: 1fr; }
+  .activities-section .activities-list { grid-template-columns: 1fr; }
   .activity-row { grid-template-columns: 1fr; gap: 8px; }
   .join-section { margin-inline: 16px; padding: 30px 24px; }
   .site-footer { padding-inline: 20px; }
