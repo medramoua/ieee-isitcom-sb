@@ -32,9 +32,9 @@ a { color: inherit; }
 .space-spark--three { top: 82%; right: 31%; width: 5px; height: 5px; animation-delay: -2s; }
 .space-satellite { position: absolute; top: 20%; right: 16%; display: block; width: 112px; height: 66px; opacity: .62; filter: drop-shadow(0 0 8px #7dd3fc77); animation: space-satellite-drift 26s ease-in-out infinite; }
 .space-satellite svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.space-astronaut { position: absolute; top: 34%; left: 74%; width: 78px; height: 102px; opacity: 1; filter: drop-shadow(0 0 12px #7dd3fcaa); animation: space-astronaut-fall 28s ease-in-out infinite alternate; }
-.space-astronaut--female { top: 9%; left: 41%; animation-delay: -9s; filter: drop-shadow(0 0 12px #f472b6bb); }
-.space-robot { top: 46%; left: 88%; animation-delay: -18s; filter: drop-shadow(0 0 12px #22c55eaa); }
+.space-astronaut { position: absolute; top: 34%; right: 12%; width: clamp(52px,5.5vw,78px); height: auto; opacity: 1; filter: drop-shadow(0 0 12px #7dd3fcaa); animation: space-astronaut-fall 28s ease-in-out infinite; }
+.space-astronaut--female { top: 9%; right: 34%; animation-delay: -9s; filter: drop-shadow(0 0 12px #f472b6bb); }
+.space-robot { top: 56%; right: 8%; animation-delay: -18s; filter: drop-shadow(0 0 12px #22c55eaa); }
 .space-label-text { filter: drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor); }
 .space-label-text--aess { filter: drop-shadow(0 0 3px #c4b5fd) drop-shadow(0 0 6px #8b5cf6); }
 .space-label-text--wee { filter: drop-shadow(0 0 3px #f9a8d4) drop-shadow(0 0 6px #ec4899); }
@@ -277,8 +277,10 @@ a { color: inherit; }
   to { opacity: .65; transform: scale(1.08); }
 }
 @keyframes space-astronaut-fall {
-  0% { opacity: 1; transform: translate3d(0,-24vh,0) rotate(0deg); }
-  100% { opacity: 1; transform: translate3d(-28vw,115vh,0) rotate(360deg); }
+  0%,100% { opacity: 1; transform: translate3d(0,0,0) rotate(-8deg); }
+  25% { opacity: 1; transform: translate3d(-2vw,2.5vh,0) rotate(4deg); }
+  50% { opacity: 1; transform: translate3d(1vw,4vh,0) rotate(10deg); }
+  75% { opacity: 1; transform: translate3d(2vw,1.5vh,0) rotate(-2deg); }
 }
 @media(max-width:1000px) {
   .site-header { flex-wrap: wrap; gap: 10px; border-radius: 24px; }
