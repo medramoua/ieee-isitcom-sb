@@ -328,7 +328,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
               <circle cx="24" cy="16" r="2" fill="#38bdf8" />
             </svg>
           </div>
-          <div className="hero-copy">
+          <div className="hero-headline">
             <h1>
               <TextReveal
                 as="span"
@@ -352,6 +352,8 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
                 {home.heroHighlight}
               </TextReveal>
             </h1>
+          </div>
+          <div className="hero-copy">
             <p className="hero-description">{home.heroDescription}</p>
             <div className="hero-actions">
               <a className="button light" href="#join">{nav.join}</a>
