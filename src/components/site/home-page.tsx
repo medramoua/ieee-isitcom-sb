@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, BadgeCheck, BookOpen, Bot, CalendarDays, ChevronDown, Newspaper, Rocket, Trophy } from "lucide-react";
 import HoverRevealCards, { type CardItem } from "@/components/ui/cards";
+import { TextReveal } from "@/components/ui/text-reveal";
 import PhotoWheelGallery from "@/components/site/photo-wheel-gallery";
 import type en from "@/i18n/messages/en.json";
 
@@ -328,7 +329,29 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
             </svg>
           </div>
           <div className="hero-copy">
-            <h1 className="sr-only">IEEE ISITCom</h1>
+            <h1>
+              <TextReveal
+                as="span"
+                className="hero-title-line hero-title-main"
+                per="word"
+                preset="fade-in-blur"
+                replayOnHover
+                speedReveal={1.2}
+              >
+                {home.heroTitle}
+              </TextReveal>
+              <TextReveal
+                as="span"
+                className="hero-title-line hero-title-highlight"
+                per="word"
+                preset="fade-in-blur"
+                speedReveal={1.2}
+                delay={0.2}
+                replayOnHover
+              >
+                {home.heroHighlight}
+              </TextReveal>
+            </h1>
             <p className="hero-description">{home.heroDescription}</p>
             <div className="hero-actions">
               <a className="button light" href="#join">{nav.join}</a>
