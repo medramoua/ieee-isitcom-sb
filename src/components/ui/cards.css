@@ -13,7 +13,7 @@
   overflow: hidden;
   border: 1px solid rgb(165 243 252 / 28%);
   border-radius: 4px;
-  color: #F4EDE0;
+  color: #FFFFFF;
   background-color: #0b2940;
   background-position: center;
   background-size: cover;
@@ -140,7 +140,7 @@
 
 .hover-reveal-card__title {
   margin: 8px 0 0;
-  color: #F4EDE0;
+  color: #FFFFFF;
   font-size: 1.5rem;
   font-weight: 650;
   letter-spacing: -.025em;
