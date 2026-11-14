@@ -209,14 +209,14 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           </svg>
         </span>
         <svg className="space-astronaut" viewBox="0 0 100 130" fill="none">
-          <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#dbeafe" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="m38 94-8 23m33-23 8 23" stroke="#dbeafe" strokeWidth="12" strokeLinecap="round" />
-          <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
-          <rect x="37" y="50" width="27" height="17" rx="3" fill="#0c2942" stroke="#38bdf8" strokeWidth="1.5" />
-          <text x="50.5" y="62.5" textAnchor="middle" fill="#fff" fontSize="8.5" fontWeight="900" stroke="#0c2942" strokeWidth=".7" paintOrder="stroke">AESS</text>
-          <rect x="43" y="69" width="17" height="18" rx="5" fill="#38bdf8" />
-          <circle cx="51" cy="23" r="20" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="3" />
-          <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#0c2942" stroke="#7dd3fc" strokeWidth="2" />
+          <path d="M25 57 11 76l8 7 19-16M72 57l15 18-8 8-20-15" stroke="#c4b5fd" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="m38 94-8 23m33-23 8 23" stroke="#c4b5fd" strokeWidth="12" strokeLinecap="round" />
+          <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="4" />
+          <rect x="36" y="49" width="29" height="19" rx="4" fill="#4c1d95" stroke="#c4b5fd" strokeWidth="2" />
+          <text className="space-label-text space-label-text--aess" x="50.5" y="63" textAnchor="middle" fill="#fff" fontSize="9.5" fontWeight="900" stroke="#4c1d95" strokeWidth="1" paintOrder="stroke">AESS</text>
+          <rect x="43" y="70" width="17" height="17" rx="5" fill="#a78bfa" />
+          <circle cx="51" cy="23" r="20" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="4" />
+          <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#312e81" stroke="#c4b5fd" strokeWidth="2" />
           <path d="m37 43-7 7m35-7 7 7" stroke="#f8fafc" strokeWidth="4" strokeLinecap="round" />
           <rect x="65" y="48" width="8" height="20" rx="3" fill="#0f3451" stroke="#94a3b8" strokeWidth="2" />
         </svg>
@@ -225,7 +225,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <path d="m39 94-8 23m30-23 8 23" stroke="#f472b6" strokeWidth="12" strokeLinecap="round" />
           <path d="M34 48c0-10 7-18 16-18s16 8 16 18v41H34V48Z" fill="#fdf2f8" stroke="#ec4899" strokeWidth="4" />
           <rect x="37" y="51" width="27" height="14" rx="3" fill="#831843" stroke="#f472b6" strokeWidth="1.5" />
-          <text x="50.5" y="61" textAnchor="middle" fill="#fff" fontSize="7.5" fontWeight="800" stroke="#831843" strokeWidth=".6" paintOrder="stroke">WEE</text>
+          <text className="space-label-text space-label-text--wee" x="50.5" y="61" textAnchor="middle" fill="#fff" fontSize="8.5" fontWeight="900" stroke="#831843" strokeWidth=".8" paintOrder="stroke">WEE</text>
           <rect x="43" y="70" width="17" height="17" rx="5" fill="#f9a8d4" />
           <circle cx="51" cy="23" r="20" fill="#fdf2f8" stroke="#f472b6" strokeWidth="3" />
           <path d="M34 25c-2-15 6-24 18-24 10 0 17 7 17 18-5-3-8-7-10-12-5 8-13 12-25 13Z" fill="#7c2d5a" />
@@ -244,7 +244,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <rect x="25" y="60" width="50" height="42" rx="8" fill="#f0fdf4" stroke="#22c55e" strokeWidth="4" />
           <path d="M30 63h40v17c-9 12-23 18-40 19V63Z" fill="#dcfce7" />
           <rect x="35" y="82" width="30" height="15" rx="4" fill="#14532d" stroke="#22c55e" strokeWidth="1.5" />
-          <text x="50" y="92.5" textAnchor="middle" fill="#86efac" fontSize="9" fontWeight="800" stroke="#14532d" strokeWidth=".7" paintOrder="stroke">RAS</text>
+          <text className="space-label-text space-label-text--ras" x="50" y="92.5" textAnchor="middle" fill="#bbf7d0" fontSize="9" fontWeight="900" stroke="#14532d" strokeWidth="1" paintOrder="stroke">RAS</text>
           <path d="m25 67-7 7v17m57-24 7 7v17M39 102v14m22-14v14m-8-1h-9m31 0h-9" stroke="#22c55e" strokeWidth="5" strokeLinecap="round" />
           <circle cx="18" cy="73" r="5" fill="#f0fdf4" stroke="#22c55e" strokeWidth="3" />
           <circle cx="82" cy="73" r="5" fill="#f0fdf4" stroke="#22c55e" strokeWidth="3" />

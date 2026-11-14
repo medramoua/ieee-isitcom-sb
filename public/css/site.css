@@ -35,6 +35,10 @@ a { color: inherit; }
 .space-astronaut { position: absolute; top: 34%; left: 74%; width: 78px; height: 102px; opacity: .92; filter: drop-shadow(0 0 12px #7dd3fcaa); animation: space-astronaut-fall 28s ease-in-out infinite alternate; }
 .space-astronaut--female { top: 9%; left: 41%; animation-delay: -9s; filter: drop-shadow(0 0 12px #f472b6bb); }
 .space-robot { top: 46%; left: 88%; animation-delay: -18s; filter: drop-shadow(0 0 12px #22c55eaa); }
+.space-label-text { filter: drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor); }
+.space-label-text--aess { filter: drop-shadow(0 0 3px #c4b5fd) drop-shadow(0 0 6px #8b5cf6); }
+.space-label-text--wee { filter: drop-shadow(0 0 3px #f9a8d4) drop-shadow(0 0 6px #ec4899); }
+.space-label-text--ras { filter: drop-shadow(0 0 3px #86efac) drop-shadow(0 0 6px #22c55e); }
 .site-error { margin: 0; padding: 12px 20px; color: #b91c1c; background: #fef2f2; text-align: center; }
 .site-header {
   position: sticky; top: 12px; z-index: 20; display: flex; width: min(1200px,calc(100% - 48px)); min-height: 68px; align-items: center; justify-content: space-between; gap: 18px;
