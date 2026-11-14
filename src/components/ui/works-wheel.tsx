@@ -237,7 +237,7 @@ export function WorksWheel({
                 wakeRef.current();
               }
             },
-            className: "absolute left-1/2 top-1/2 block overflow-hidden rounded-2xl border border-[#F4EDC6]/15 bg-[#071c2e] p-0 shadow-[0_24px_70px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow] duration-300 hover:border-cyan-300 hover:shadow-[0_0_0_2px_rgba(103,232,249,0.35),0_24px_70px_rgba(0,0,0,0.45)] focus-visible:border-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300 [backface-visibility:hidden]",
+            className: "absolute left-1/2 top-1/2 block overflow-hidden rounded-2xl border border-[#F4EDE0]/15 bg-[#071c2e] p-0 shadow-[0_24px_70px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow] duration-300 hover:border-cyan-300 hover:shadow-[0_0_0_2px_rgba(103,232,249,0.35),0_24px_70px_rgba(0,0,0,0.45)] focus-visible:border-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300 [backface-visibility:hidden]",
             style: {
               width: cardWidth,
               height: cardHeight,

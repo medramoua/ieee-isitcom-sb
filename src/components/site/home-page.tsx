@@ -203,7 +203,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <svg viewBox="0 0 120 70" fill="none">
             <path d="M8 16h31v38H8zM81 16h31v38H81z" fill="#2563eb" fillOpacity=".42" stroke="#93c5fd" strokeWidth="2" />
             <path d="M18 16v38m11-38v38M91 16v38m11-38v38M8 29h31M8 42h31m42-13h31m-31 13h31" stroke="#bfdbfe" strokeOpacity=".8" />
-            <path d="m43 25 13-9 13 9v22l-13 9-13-9V25Z" fill="#cbd5e1" stroke="#F4EDC6" strokeWidth="2" />
+            <path d="m43 25 13-9 13 9v22l-13 9-13-9V25Z" fill="#cbd5e1" stroke="#F4EDE0" strokeWidth="2" />
             <path d="M52 27h9v12h-9z" rx="3" fill="#0c4a6e" stroke="#7dd3fc" strokeWidth="2" />
             <path d="m56 54-4 10m8-10 4 10m-8-35-9-9m17 9 9-9" stroke="#e2e8f0" strokeWidth="2" strokeLinecap="round" />
           </svg>
@@ -213,11 +213,11 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <path d="m38 94-8 23m33-23 8 23" stroke="#c4b5fd" strokeWidth="12" strokeLinecap="round" />
           <path d="M35 48c0-10 7-18 16-18s16 8 16 18v41H35V48Z" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="4" />
           <rect x="36" y="49" width="29" height="19" rx="4" fill="#4c1d95" stroke="#c4b5fd" strokeWidth="2" />
-          <text className="space-label-text space-label-text--aess" x="50.5" y="63" textAnchor="middle" fill="#F4EDC6" fontSize="9.5" fontWeight="900" stroke="#4c1d95" strokeWidth="1" paintOrder="stroke">AESS</text>
+          <text className="space-label-text space-label-text--aess" x="50.5" y="63" textAnchor="middle" fill="#F4EDE0" fontSize="9.5" fontWeight="900" stroke="#4c1d95" strokeWidth="1" paintOrder="stroke">AESS</text>
           <rect x="43" y="70" width="17" height="17" rx="5" fill="#a78bfa" />
           <circle cx="51" cy="23" r="20" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="4" />
           <path d="M39 21c0-7 5-12 12-12s12 5 12 12v5H39v-5Z" fill="#312e81" stroke="#c4b5fd" strokeWidth="2" />
-          <path d="m37 43-7 7m35-7 7 7" stroke="#F4EDC6" strokeWidth="4" strokeLinecap="round" />
+          <path d="m37 43-7 7m35-7 7 7" stroke="#F4EDE0" strokeWidth="4" strokeLinecap="round" />
           <rect x="65" y="48" width="8" height="20" rx="3" fill="#0f3451" stroke="#94a3b8" strokeWidth="2" />
         </svg>
         <svg className="space-astronaut space-astronaut--female" viewBox="0 0 100 130" fill="none">
@@ -225,7 +225,7 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
           <path d="m39 94-8 23m30-23 8 23" stroke="#f472b6" strokeWidth="12" strokeLinecap="round" />
           <path d="M34 48c0-10 7-18 16-18s16 8 16 18v41H34V48Z" fill="#fdf2f8" stroke="#ec4899" strokeWidth="4" />
           <rect x="37" y="51" width="27" height="14" rx="3" fill="#831843" stroke="#f472b6" strokeWidth="1.5" />
-          <text className="space-label-text space-label-text--wee" x="50.5" y="61" textAnchor="middle" fill="#F4EDC6" fontSize="8.5" fontWeight="900" stroke="#831843" strokeWidth=".8" paintOrder="stroke">WEE</text>
+          <text className="space-label-text space-label-text--wee" x="50.5" y="61" textAnchor="middle" fill="#F4EDE0" fontSize="8.5" fontWeight="900" stroke="#831843" strokeWidth=".8" paintOrder="stroke">WEE</text>
           <rect x="43" y="70" width="17" height="17" rx="5" fill="#f9a8d4" />
           <circle cx="51" cy="23" r="20" fill="#fdf2f8" stroke="#f472b6" strokeWidth="3" />
           <path d="M34 25c-2-15 6-24 18-24 10 0 17 7 17 18-5-3-8-7-10-12-5 8-13 12-25 13Z" fill="#7c2d5a" />
