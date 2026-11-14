@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, BadgeCheck, BookOpen, Bot, CalendarDays, ChevronDown, Newspaper, Rocket, Trophy } from "lucide-react";
 import HoverRevealCards, { type CardItem } from "@/components/ui/cards";
-import { TextReveal } from "@/components/ui/text-reveal";
 import PhotoWheelGallery from "@/components/site/photo-wheel-gallery";
 import type en from "@/i18n/messages/en.json";
 
@@ -315,38 +314,6 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
       <main>
         <section className="home-hero">
           <div className="hero-pointer-glow" aria-hidden="true" />
-          <div className="hero-copy">
-            <p className="eyebrow">{home.eyebrow}</p>
-            <h1>
-              <TextReveal
-                as="span"
-                className="hero-title-line hero-title-main"
-                per="word"
-                preset="fade-in-blur"
-                replayOnHover
-                speedReveal={1.2}
-              >
-                {home.heroTitle}
-              </TextReveal>
-              <TextReveal
-                as="span"
-                className="hero-title-line hero-title-highlight"
-                per="word"
-                preset="fade-in-blur"
-                speedReveal={1.2}
-                delay={0.2}
-                replayOnHover
-              >
-                {home.heroHighlight}
-              </TextReveal>
-            </h1>
-            <p className="hero-description">{home.heroDescription}</p>
-            <div className="hero-actions">
-              <a className="button light" href="#join">{nav.join}</a>
-              <a className="button outline" href="#about">{home.discover}</a>
-            </div>
-            <p className="hero-location"><strong>IEEE</strong><span>{home.networkLabel}</span><span>{home.location}</span></p>
-          </div>
           <div className="hero-orbit" aria-hidden="true">
             <div className="orbit-card"><strong>IEEE</strong><span>ISITCom</span></div>
             <div className="orbit-moon-track" />
@@ -359,6 +326,15 @@ export default function HomePage({ locale, messages }: { locale: Locale; message
               <path d="M24 10V5m-3 0h6M24 22v5" fill="none" stroke="#e0f2fe" strokeLinecap="round" strokeWidth="1.5" />
               <circle cx="24" cy="16" r="2" fill="#38bdf8" />
             </svg>
+          </div>
+          <div className="hero-copy">
+            <h1 className="sr-only">IEEE ISITCom</h1>
+            <p className="hero-description">{home.heroDescription}</p>
+            <div className="hero-actions">
+              <a className="button light" href="#join">{nav.join}</a>
+              <a className="button outline" href="#about">{home.discover}</a>
+            </div>
+            <p className="hero-location"><strong>IEEE</strong><span>{home.networkLabel}</span><span>{home.location}</span></p>
           </div>
         </section>
 
